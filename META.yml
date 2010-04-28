@@ -1,0 +1,66 @@
+--- #YAML:1.0
+name:               podlinkcheck
+version:            1
+abstract:           Upload files to a remote FTP server.
+author:
+    - Kevin Ryde <user42@zip.com.au>
+license:            gpl
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
+requires:
+    File::Find::Iterator:  0
+    IPC::Run:             0
+    List::Util:           0
+    Locale::TextDomain:   0
+    perl:                 5.005
+    Pod::Find:            0
+    Pod::Simple:          0
+    Test::More:           0
+    warnings:             0
+resources:
+    homepage:  http://user42.tuxfamily.org/podlinkcheck/index.html
+    license:   http://www.gnu.org/licenses/gpl.html
+no_index:
+    directory:
+        - t
+        - inc
+        - devel
+generated_by:       ExtUtils::MakeMaker version 6.55_02
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
+optional_features:
+    maximum_devel:
+        description:  Stuff used variously for development.
+        requires:
+            IO::String:           0
+            Pod::Escapes:         0
+            Pod::ParseLink:       0
+            Pod::Parser:          0
+            Pod::Simple::HTML:    0
+            Pod::Simple::HTMLBatch:  0
+            Smart::Comments:      0
+    maximum_interoperation:
+        description:  Have maximum inter-operation with other modules (optional supported other stuff).
+        requires:
+            CPANPLUS::Backend:    0
+            CPANPLUS::Configure:  0
+            Sort::Key::Natural:   0
+    maximum_tests:
+        description:  Have "make test" do as much as possible.
+        requires:
+            Parse::CPAN::Meta:   0
+            Test::DistManifest:  0
+            Test::NoWarnings:    0
+            Test::Pod:           1.00
+            Test::Synopsis:      0
+            Test::YAML::Meta:    0.13
+            YAML:                0
+            YAML::Syck:          0
+            YAML::Tiny:          0
+            YAML::XS:            0
+recommends:
+    Sort::Key::Natural:  0

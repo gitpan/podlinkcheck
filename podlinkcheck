@@ -1,0 +1,147 @@
+#!/usr/bin/perl -w
+
+# Copyright 2010 Kevin Ryde
+
+# This file is part of PodLinkCheck.
+
+# PodLinkCheck is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 3, or (at your option) any later
+# version.
+#
+# PodLinkCheck is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
+
+use 5.005;
+use strict;
+use warnings;
+use App::PodLinkCheck;
+
+use vars '$VERSION';
+$VERSION = 1;
+
+my $plc = App::PodLinkCheck->new;
+exit $plc->command_line;
+
+__END__
+
+=for stopwords podlinkcheck Ryde subdirs cpan Manpage manpage
+
+=head1 NAME
+
+podlinkcheck -- check Perl pod LE<lt>E<gt> link references
+
+=head1 SYNOPSIS
+
+ podlinkcheck [--options] file-or-dir...
+
+=head1 DESCRIPTION
+
+PodLinkCheck parses Perl POD from a script, module or documentation file and
+checks that C<LE<lt>fooE<gt>> links within it refer to a known program,
+module, or man page.
+
+The command line is either individual files or whole directories.  For a
+directory all the F<.pl>, F<.pm> and F<.pod> files under it are checked.
+For example to churn through all installed add-on modules,
+
+    podlinkcheck /usr/share/perl5
+
+The usual things detected are typos in the target page or section name, and
+sometimes LE<lt>text|nameE<gt> parts the wrong way around.  Occasionally
+there may be an C<LE<lt>fooE<gt>> used where say C<IE<lt>E<gt>> or
+C<CE<lt>E<gt>> was intended too.
+
+=head2 Checks
+
+External links are checked by seeking the target F<.pm> module or F<.pod>
+documentation in the C<@INC> path (per C<Pod::Find>), or seeking a script
+(no file extension) in the usual executable C<PATH>.  The target section is
+checked by parsing the POD from that file.
+
+Module existence is also checked in the C<CPAN::SQLite>, C<CPAN> or
+C<CPANPLUS> indexes.  They're not re-downloaded, just current data
+consulted.  This covers cross-references to things not currently installed.
+A warning is given if a target section name goes unchecked because it's only
+on cpan, not available locally.
+
+Manpage links are checked by asking the C<man> program if it recognises the
+name, including any number part like C<chmod(2)>.  A manpage can also
+satisfy what otherwise appears to be a POD link (with no sub-section), since
+there's often a bit of confusion between the two.
+
+=head2 One-Word Links
+
+Internal links have been written as say LE<lt>SYNOPSISE<gt> but the current
+C<perlpodspec> advice is to avoid ambiguity between a module and a section
+by writing a section with / or quotes,
+
+    See L</SYNOPSIS> above.
+
+    See L<"SYNOPSIS"> above.
+
+A warning is given for an apparent section link written like this, but not
+if there's an external module etc of the given name because it's not
+uncommon to have a module name as a heading or item, but the C<LE<lt>E<gt>>
+link still meaning external.
+
+=head1 OTHER WAYS TO DO IT
+
+C<podchecker> (the C<Pod::Checker> module) checks internal links (along with
+POD markup syntax), but it doesn't check external links.
+
+=head1 BUGS
+
+The line:column number reported is sometimes a bit off due to limited
+information recorded by C<Pod::Simple> during its parse.
+
+Man pages are checked with C<man --location>, which might require a
+reasonably new "man" or might even be "man-db" specific.
+
+The current code consulting the C<CPAN.pm> index might need a tolerably new
+version of that module, maybe 1.61 circa Perl 5.8.0.  On earlier versions
+the index will not be used.
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item C<PATH>
+
+Search path for scripts.
+
+=back
+
+=head1 SEE ALSO
+
+L<podchecker>, L<podlint>
+
+L<Pod::Simple>, L<Pod::Find>, L<Pod::Checker>, L<CPANPLUS>, L<CPAN>
+
+=head1 HOME PAGE
+
+http://user42.tuxfamily.org/podlinkcheck/index.html
+
+=head1 LICENSE
+
+Copyright 2010 Kevin Ryde
+
+PodLinkCheck is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3, or (at your option) any later
+version.
+
+PodLinkCheck is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
+
+You should have received a copy of the GNU General Public License along with
+PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
+
+=cut
