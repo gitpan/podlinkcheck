@@ -29,7 +29,7 @@ BEGIN {
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 1;
+  my $want_version = 2;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },
@@ -90,8 +90,12 @@ foreach my $elem (['<', 'E<lt>'],
 # CPAN
 
 {
-  my $plc = App::PodLinkCheck->new;
+  # CPANPLUS variously warn()s for dodgy .gz file reading and stuff ...
+  local $SIG{'__WARN__'} = sub {
+    diag @_;
+  };
 
+  my $plc = App::PodLinkCheck->new;
   foreach my $method ('_module_known_CPAN_SQLite',
                       '_module_known_CPAN',
                       '_module_known_CPANPLUS') {

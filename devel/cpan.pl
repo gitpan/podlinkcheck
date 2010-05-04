@@ -21,12 +21,20 @@ use 5.005;
 use strict;
 use warnings;
 
+$ENV{'HOME'} = '/tmp/nosuchdir';
+
+mkdir '/tmp/nosuchdir';
+chmod 0444, '/tmp/nosuchdir';
+
 {
   # print  exists($CPAN::META->{'readwrite'}->{'CPAN::Module'}->{'x'}),"\n";
 
   require CPAN;
   if (! $CPAN::Config_loaded) {
+    print "CPAN::HandleConfig->load\n";
+    local $CPAN::HandleConfig::loading = 1;
     CPAN::HandleConfig->load;
+    print "finished CPAN::HandleConfig->load\n";
   }
   print "CPAN::META ",scalar(%$CPAN::META),"\n";
   if (! %$CPAN::META) {

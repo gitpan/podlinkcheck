@@ -26,7 +26,7 @@ use Text::Tabs;
 use base 'App::PodLinkCheck::ParseSections';
 
 use vars '$VERSION';
-$VERSION = 1;
+$VERSION = 2;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;

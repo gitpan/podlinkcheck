@@ -15,41 +15,41 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 eb2101b3d3f33f88fdcc431ed0d03883a7121abb Changes
+SHA1 220d83a6ed1d7de29da781539280ca7bb1441ffe Changes
 SHA1 81c86d30ea1d97b305d82205da20629c946bcacb MANIFEST
 SHA1 00e97fa7664a1ea29a3be5b0b2ec2b0076e002f1 MANIFEST.SKIP
-SHA1 c2f9405a1d0b8396e7ee12b95d94d1da68e2f196 META.yml
-SHA1 928e2688008c499a5417da0af77f1ac343a7c022 Makefile.PL
-SHA1 3073b6f5f9ef5a7ebf8eb2deb3bde883944cafa6 debian/changelog
+SHA1 b4b5e2878b731330e452a03150ea2f3d03131453 META.yml
+SHA1 38ee725b98b6386396e979092f9fb9febec9beb7 Makefile.PL
+SHA1 69048cdbad84c5a2c2a4074096c3160281b902c9 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
-SHA1 2ba2de6be22bdb4ec3844e5c15b6beaafa3141f4 debian/control
+SHA1 981affe61b0cba67510965d5031c1b7e7cb316f3 debian/control
 SHA1 56761d0926e31c025e9669f2be2e5b8a4b478f82 debian/copyright
 SHA1 085206628ab15ffb2c4b181b520330c9bb5b2133 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 53a196932bebde7d88cccc83689a6e82b31f5213 debian/watch
 SHA1 149c410e44106b78518a80b975b24309cfa21fb5 devel/cpan-sqlite.pl
-SHA1 c1fba0d71ae8fd5ba1857244fb3934c9943358cf devel/cpan.pl
+SHA1 9d48ce8132f3dd3029ca8a608cf42ce25bc2852b devel/cpan.pl
 SHA1 063f4892aed5a8a4d1ec30915aa9da26e3f1858f devel/cpanplus.pl
-SHA1 7fd2db31248d2d79af872d88507315ec8cea8b1d devel/htmlbatch.pl
+SHA1 9545f1daca98ff5423d61427b9fe726cb4995e8e devel/htmlbatch.pl
 SHA1 925d2e5249c687285187b14652541878b070c225 devel/podfind.pl
 SHA1 84493abbeaba4aeef64859e710a21a3ba08b10e7 devel/podparser.pl
-SHA1 5a56086fe30422f60b37c1723211288e701a94e9 devel/run.pl
-SHA1 683736a89b8a1cf1aee59e2ec665e3fe34e40339 inc/MyMakeMakerExtras.pm
+SHA1 5e8f982cbf172c2c579292719fdd09cefdafa86e devel/run.pl
+SHA1 0c1b90a4a43fd503eaf53fad2056da1d04468e16 inc/MyMakeMakerExtras.pm
 SHA1 63427b66eb26f013f10c835b0cf320c93361f310 inc/my_pod2html
-SHA1 0c3e69c1fac08a05fb924ffefa3000cd54b1cd6c lib/App/PodLinkCheck.pm
-SHA1 1af502079b5bb9fef7b28d5727371839e44ccc3d lib/App/PodLinkCheck/ParseLinks.pm
-SHA1 3c8f6e642adf75ee0cbcb95baf319735fe4f7b6e lib/App/PodLinkCheck/ParseSections.pm
-SHA1 c10443708986ed141e30c263d49ec3d4ab451ce1 podlinkcheck
+SHA1 905a2bd9c34cf7a47048869b99a3d971ca609a62 lib/App/PodLinkCheck.pm
+SHA1 6576ea833c2dc472d372083bbeae7ace27742d50 lib/App/PodLinkCheck/ParseLinks.pm
+SHA1 d1352ba187b24cbd5f8118f6c84a66de4bd35635 lib/App/PodLinkCheck/ParseSections.pm
+SHA1 45a82f9e60824abf50f89a6fe8562e00f5c144ee podlinkcheck
 SHA1 d5d5c83c83918d8c97ca79e92ea840cdf277f01f t/0-META-read.t
 SHA1 37abd43b41068804ea4bb099fdd89af21be82926 t/0-Test-DistManifest.t
 SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 t/0-Test-Pod.t
 SHA1 5fa94e1e88e44064d1e6b21c88a4c9374a17bfd1 t/0-Test-Synopsis.t
-SHA1 cfb7a2cba63fdedb0a568c843153694aa2b96fde t/0-Test-YAML-Meta.t
-SHA1 92990d93adfa738d3b9e4ed6b0cc86b4fc2ea31c t/PodLinkCheck.t
+SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 t/0-Test-YAML-Meta.t
+SHA1 dbe9f151a48e64663bfd85ef498b57f5cd1829fb t/PodLinkCheck.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFL2LGVLFMCIV9q3ToRApmCAJ0U7g/b41fiDft5PthpRZYLI8UzswCgucHK
-ht3uqnaAQvt/c/3MMsHM5ck=
-=vouK
+iD8DBQFL32HuLFMCIV9q3ToRAnY9AKCRLvq5s5rqtVwjAdun6HPdw4eldQCcCMQ3
+K/K/44cRgwsqbf3hmnEUxDk=
+=Ihzc
 -----END PGP SIGNATURE-----

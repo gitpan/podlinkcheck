@@ -233,7 +233,7 @@ HERE
 
   my $lint_files = $my_options{'MyMakeMakerExtras_LINT_FILES'};
   if (! defined $lint_files) {
-    $lint_files = '$(EXE_FILES) $(TO_INST_PM)';
+    $lint_files = 'Makefile.PL $(EXE_FILES) $(TO_INST_PM)';
     # would prefer not to lock down the 't' dir existance at ./Makefile.PL
     # time, but it's a bit hard without without GNU make extensions
     if (-d 't') { $lint_files .= ' t/*.t'; }
@@ -312,7 +312,7 @@ check-debug-constants:
 	if egrep -n 'DEBUG => [1-9]|^[ \t]*use Smart::Comments' $(EXE_FILES) $(TO_INST_PM); then exit 1; else exit 0; fi
 
 check-spelling:
-	if egrep -nHi 'continous|existant|explict|agument|destionation|\bthe the\b|\bnote sure\b' -r . \
+	if egrep -nHi 'noticable|continous|existant|explict|agument|destionation|\bthe the\b|\bnote sure\b' -r . \
 	  | egrep -v '(MyMakeMakerExtras|Makefile|dist-deb).*grep -nH'; \
 	then false; else true; fi
 

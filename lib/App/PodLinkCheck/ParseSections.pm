@@ -22,7 +22,7 @@ use warnings;
 use base 'Pod::Simple';
 
 use vars '$VERSION';
-$VERSION = 1;
+$VERSION = 2;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;

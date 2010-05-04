@@ -25,7 +25,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 1;
+$VERSION = 2;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -342,20 +342,52 @@ sub _module_known_cpan {
   return 0;
 }
 
+use constant::defer _CPAN_config => sub {
+  my $result = 0;
+  eval {
+    require CPAN;
+    # not sure how far back this will work, maybe only 5.8.0 up
+    if (! $CPAN::Config_loaded
+        && CPAN::HandleConfig->can('load')) {
+      # fake $loading to avoid running the CPAN::FirstTime dialog -- is
+      # this the right way to do that?
+      local $CPAN::HandleConfig::loading = 1;
+      print __x("PodLinkCheck: {module} configs\n",
+                module => 'CPAN');
+      CPAN::HandleConfig->load;
+    }
+    $result = 1;
+  }
+    or print "CPAN.pm config error: $@\n";
+  return $result;
+};
+
 sub _module_known_CPAN_SQLite {
   my ($self, $module) = @_;
 
   if (! defined $self->{'cpan_sqlite'}) {
-    print __x("PodLinkCheck: load {module} for module existence checking\n",
-              module => 'CPAN::SQLite');
-    if (! eval { require CPAN::SQLite }) {
-      $self->{'cpan_sqlite'} = 0;
-      print __x("Cannot load {module}, skipping -- {error}\n",
-                module => 'CPAN::SQLite',
-                error => $@);
-      return 0;
+    $self->{'cpan_sqlite'} = 0;
+
+    if ($self->_CPAN_config) {
+      print __x("PodLinkCheck: load {module} for module existence checking\n",
+                module => 'CPAN::SQLite');
+      if (! eval { require CPAN::SQLite }) {
+        print __x("Cannot load {module}, skipping -- {error}\n",
+                  module => 'CPAN::SQLite',
+                  error => $@);
+        return 0;
+      }
+      if (! eval {
+        # fake $loading to avoid running the CPAN::FirstTime dialog -- is
+        # this the right way to do that?
+        local $CPAN::HandleConfig::loading = 1;
+        $self->{'cpan_sqlite'} = CPAN::SQLite->new (update_indices => 0);
+      }) {
+        print __x("{module} error: {error}\n",
+                  module => 'CPAN::SQLite',
+                  error => $@);
+      }
     }
-    $self->{'cpan_sqlite'} = CPAN::SQLite->new (update_indices => 0);
   }
 
   return ($self->{'cpan_sqlite'}
@@ -369,27 +401,31 @@ sub _module_known_CPAN {
   ### _module_known_CPAN(): $module
 
   if (! defined $use_CPAN) {
-    $use_CPAN = 1;
-    print __x("PodLinkCheck: load {module} for module existence checking\n",
-              module => 'CPAN');
+    $use_CPAN = 0;
 
-    # not sure how far back this will work, maybe only 5.8.0 up
-    require CPAN;
-    if (! $CPAN::Config_loaded
-        && CPAN::HandleConfig->can('load')) {
-      CPAN::HandleConfig->load;
-    }
+    if ($self->_CPAN_config) {
+      eval {
+        print __x("PodLinkCheck: load {module} for module existence checking\n",
+                  module => 'CPAN');
 
-    if (! %$CPAN::META) {
-      if (! CPAN::Index->can('read_metadata_cache')) {
-        print __("PodLinkCheck: no Metadata cache in this CPAN.pm\n");
-        $use_CPAN = 0;
-        return 0;  # and $use_CPAN false for no more tries
+        if (defined $CPAN::META && %$CPAN::META) {
+          $use_CPAN = 1;
+        } elsif (! CPAN::Index->can('read_metadata_cache')) {
+          print __("PodLinkCheck: no Metadata cache in this CPAN.pm\n");
+        } else {
+          # try the .cpan/Metadata even if CPAN::SQLite is installed, just in
+          # case the SQLite is not up-to-date or has not been used yet
+          local $CPAN::Config->{use_sqlite} = 0;
+          CPAN::Index->read_metadata_cache;
+          if (defined $CPAN::META && %$CPAN::META) {
+            $use_CPAN = 1;
+          } else {
+            print __("PodLinkCheck: empty Metadata cache\n");
+          }
+        }
+        1;
       }
-      # try the .cpan/Metadata even if CPAN::SQLite is installed, just in
-      # case it's not up-to-date or has not been used yet
-      local $CPAN::Config->{use_sqlite} = 0;
-      CPAN::Index->read_metadata_cache;
+        or print "CPAN.pm error: $@\n";
     }
   }
 
@@ -471,15 +507,29 @@ sub manpage_is_known {
     return $$r;
   }
   ### man: $name,$section
+
+  # --location is not in posix,
+  # http://www.opengroup.org/onlinepubs/009695399/utilities/man.html
+  # Is it man-db specific, or does it have a chance of working elsewhere?
+  #
+  # IPC::Run throws an error if the command is not found or if fork() fails.
+  #
   my $path;
   require IPC::Run;
-  IPC::Run::run (['man',
-                  '--location',
-                  ($section eq '' ? () : ($section)),
-                  $name],
-                 \undef,  # stdin
-                 \$path,  # stdout
-                 sub{});  # stderr discard
+  if (! eval {
+    IPC::Run::run (['man',
+                    '--location',
+                    ($section eq '' ? () : ($section)),
+                    $name],
+                   \undef,  # stdin
+                   \$path,  # stdout
+                   sub{});  # stderr discard
+    1;
+  }) {
+    print __x("Error running 'man': {error}\n", error => $@);
+    return 0;
+  }
+
   ### $path
   return ($$r = ($path ne ''));
 }

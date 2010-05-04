@@ -34,6 +34,7 @@ MyMakeMakerExtras::WriteMakefile
    EXE_FILES    => [ 'podlinkcheck' ],
    PREREQ_PM    => {
                     'warnings' => 0,
+                    'constant::defer' => 0,
                     'Pod::Simple' => 0,
                     'Pod::Find' => 0,
                     'File::Find::Iterator' => 0,

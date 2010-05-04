@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               podlinkcheck
-version:            1
+version:            2
 abstract:           Upload files to a remote FTP server.
 author:
     - Kevin Ryde <user42@zip.com.au>
@@ -11,6 +11,7 @@ configure_requires:
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
+    constant::defer:      0
     File::Find::Iterator:  0
     IPC::Run:             0
     List::Util:           0

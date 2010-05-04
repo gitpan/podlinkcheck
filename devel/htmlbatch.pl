@@ -26,8 +26,8 @@ my $dir = '/z/tmp/pod-links';
 File::Path::make_path ($dir);
 
 my $batch = Pod::Simple::HTMLBatch->new;
-$batch->css_flurry(0);
+#$batch->css_flurry(0);
 # $batch->batch_convert ('@INC', $dir);
 
-$batch->batch_convert ('/usr/share/perl5', $dir);
+$batch->batch_convert ('/usr/share/perl5/Algorithm', $dir);
 #$batch->batch_convert ('@INC', $dir);

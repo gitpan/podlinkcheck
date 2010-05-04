@@ -23,7 +23,7 @@ use warnings;
 use App::PodLinkCheck;
 
 use vars '$VERSION';
-$VERSION = 1;
+$VERSION = 2;
 
 my $plc = App::PodLinkCheck->new;
 exit $plc->command_line;
@@ -100,8 +100,9 @@ POD markup syntax), but it doesn't check external links.
 The line:column number reported is sometimes a bit off due to limited
 information recorded by C<Pod::Simple> during its parse.
 
-Man pages are checked with C<man --location>, which might require a
-reasonably new "man" or might even be "man-db" specific.
+Man pages are checked with C<man --location>, which is not a POSIX standard
+option and might require a reasonably new "man" or might even be "man-db"
+specific.
 
 The current code consulting the C<CPAN.pm> index might need a tolerably new
 version of that module, maybe 1.61 circa Perl 5.8.0.  On earlier versions

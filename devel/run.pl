@@ -25,9 +25,34 @@ my $progfile = "$FindBin::Bin/$FindBin::Script";
 print $progfile,"\n";
 
 {
+  require Data::Dumper;
+#   my @x;
+#   $#x = 100e6 / 4;
+#   print scalar(@x),"\n";
+
+  #   my $pid = fork();
+  #   print Data::Dumper->new([\$pid],['pid'])->Dump;
+
+  my $out;
+  require IPC::Run;
+  IPC::Run::run (['ecfdjsklho', 'hello'],
+                 \undef,  # stdin
+                 \$out,  # stdout
+                 sub{});  # stderr
+  print "done\n";
+  exit 0;
+}
+
+{
   require App::PodLinkCheck;
   my $plc = App::PodLinkCheck->new;
-  print $plc->_module_known_cpanplus('http:'),"\n";
+
+  #   my $conf = $plc->_CPAN_config;
+  #   print "conf $conf\n";
+
+  print $plc->_module_known_CPAN('Pod::Find'),"\n";
+  # print $plc->_module_known_CPAN('http:'),"\n";
+  # print $plc->_module_known_CPAN_SQLite('http:'),"\n";
   exit 0;
 }
 
