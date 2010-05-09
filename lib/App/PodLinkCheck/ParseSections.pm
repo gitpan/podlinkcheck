@@ -22,7 +22,7 @@ use warnings;
 use base 'Pod::Simple';
 
 use vars '$VERSION';
-$VERSION = 2;
+$VERSION = 3;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -73,13 +73,16 @@ sub _handle_element_end {
     $section = _collapse_whitespace ($section);
     $self->{(__PACKAGE__)}->{'sections'}->{$section} = 1;
 
-    # like Pod::Checker take the first word as a section name too, which is
-    # much used for cross-references to perlfunc.
-    # THINK-ABOUT-ME: Pod::Checker uses "$section =~ s/\s.*//" to crunch
-    # down, CHI.pm better treated by a first word, to exclude parens etc.
-    if ($section =~ /^(\w+)/) {
+    # Like Pod::Checker take the first word, meaning up to the first
+    # whitespace, as a section name too, which is much used for
+    # cross-references to perlfunc.
+    #
+    # THINK-ABOUT-ME: CHI.pm is better treated by taking the first \w word
+    # so as to exclude parens etc.
+    #
+    if ($section =~ s/\s.*//) {
       ### section one word: $section
-      $self->{(__PACKAGE__)}->{'sections'}->{$1} = 1;
+      $self->{(__PACKAGE__)}->{'sections'}->{$section} = 1;
     }
   }
 }

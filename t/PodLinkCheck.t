@@ -29,7 +29,7 @@ BEGIN {
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 2;
+  my $want_version = 3;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },
@@ -63,12 +63,19 @@ BEGIN {
 # manpage_is_known()
 
 {
-  my $plc = App::PodLinkCheck->new;
+  # IPC::Run caches paths, so must have empty for not found first
+  foreach my $path ('', $ENV{'PATH'}) {
+    local $ENV{'PATH'} = $path;
+    diag "with path '",$ENV{'PATH'}, "'";
 
-  foreach my $name ('cat',
-                    'cat(1)',
-                    'nosuchmanpagename') {
-    diag "manpage_is_known() $name is ", $plc->manpage_is_known($name);
+    my $plc = App::PodLinkCheck->new;
+    foreach my $name ('cat',
+                      'cat(1)',
+                      'nosuchmanpagename') {
+      diag "manpage_is_known() $name";
+      my $result = $plc->manpage_is_known($name);
+      diag "is ", $result;
+    }
   }
 }
 

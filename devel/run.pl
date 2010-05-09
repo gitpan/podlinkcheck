@@ -25,6 +25,40 @@ my $progfile = "$FindBin::Bin/$FindBin::Script";
 print $progfile,"\n";
 
 {
+  require GDBM_File;
+  require Fcntl;
+  my %h;
+  my $filename = '/tmp/x.gdbm';
+  tie (%h, 'GDBM_File',
+       $filename, Fcntl::O_RDWR()|Fcntl::O_CREAT(), 0666)
+    or die "Cannot tie $filename: $!";
+
+  $h{'foo'} = 'bar';
+  exit 0;
+}
+
+
+{
+  delete $ENV{PATH};
+  require App::PodLinkCheck;
+  my $plc = App::PodLinkCheck->new;
+  my $name = 'cat';
+  print "manpage_is_known() $name";
+  my $result = $plc->manpage_is_known($name);
+  print "is ", $result, "\n";
+  print "done\n";
+  exit 0;
+}
+
+{
+  require IPC::Run;
+  delete $ENV{PATH};
+  IPC::Run::run (['man', '--location', 'cat']);
+  print "done\n";
+  exit 0;
+}
+
+{
   require Data::Dumper;
 #   my @x;
 #   $#x = 100e6 / 4;

@@ -25,7 +25,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 2;
+$VERSION = 3;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -178,7 +178,8 @@ sub check_file {
     my ($type, $to, $section, $linenum, $column) = @$link;
 
     if ($self->{'verbose'}) {
-      print "$type $to", (defined $section ? " / $section" : ""), "\n";
+      print "Link: $type ",(defined $to ? $to : '[undef]'),
+        (defined $section ? " / $section" : ""), "\n";
     }
 
     if ($type eq 'man') {
@@ -202,6 +203,12 @@ sub check_file {
           $self->report ($filename, $linenum, $column,
                          __x('no section "{section}"',
                              section => $section));
+        }
+        if ($self->{'verbose'} >= 2) {
+          print __("    available sections:\n");
+          foreach my $section (keys %$own_sections) {
+            print "    $section\n";
+          }
         }
       }
       next;
@@ -272,6 +279,13 @@ sub check_file {
                              section => $section,
                              filename => $podfile));
         }
+        if ($self->{'verbose'} >= 2) {
+          print __("    available sections:\n");
+          foreach my $section (keys %$podfile_sections) {
+            print "    $section\n";
+          }
+        }
+
       }
     }
   }
@@ -455,9 +469,25 @@ sub _module_known_CPANPLUS {
     $self->{'cpanplus'} = CPANPLUS::Backend->new ($conf);
   }
 
-  # module_tree() returns false '' for not found
-  return ($self->{'cpanplus'}
-          && $self->{'cpanplus'}->module_tree($module));
+  if (! $self->{'cpanplus'}) {
+    return 0;
+  }
+
+  # module_tree() returns false '' for not found.
+  #
+  # Struck an error from module_tree() somehow relating to
+  # CPANPLUS::Internals::Source::SQLite on cpantesters at one time, so guard
+  # with an eval.
+  #
+  my $result;
+  if (! eval { $result = $self->{'cpanplus'}->module_tree($module); 1 }) {
+    print __x("{module} error, disabling -- {error}\n",
+              module => 'CPANPLUS',
+              error => $@);
+    $self->{'cpanplus'} = 0;
+    return 0;
+  }
+  return $result;
 }
 
 #------------------------------------------------------------------------------
@@ -526,7 +556,9 @@ sub manpage_is_known {
                    sub{});  # stderr discard
     1;
   }) {
-    print __x("Error running 'man': {error}\n", error => $@);
+    my $err = $@;
+    $err =~ s/\s+$//;
+    print __x("PodLinkCheck: error running 'man': {error}\n", error => $err);
     return 0;
   }
 

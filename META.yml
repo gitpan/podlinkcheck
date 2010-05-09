@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               podlinkcheck
-version:            2
+version:            3
 abstract:           Upload files to a remote FTP server.
 author:
     - Kevin Ryde <user42@zip.com.au>

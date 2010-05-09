@@ -23,7 +23,7 @@ use warnings;
 use App::PodLinkCheck;
 
 use vars '$VERSION';
-$VERSION = 2;
+$VERSION = 3;
 
 my $plc = App::PodLinkCheck->new;
 exit $plc->command_line;
@@ -103,6 +103,11 @@ information recorded by C<Pod::Simple> during its parse.
 Man pages are checked with C<man --location>, which is not a POSIX standard
 option and might require a reasonably new "man" or might even be "man-db"
 specific.
+
+C<CPAN::SQLite> is checked first because it's fast and compact, but if a
+target is not found there then the C<CPAN> and C<CPANPLUS> caches are both
+loaded.  This allows for whichever of the three is up-to-date, but can use
+up a lot of memory for a non-existent target.
 
 The current code consulting the C<CPAN.pm> index might need a tolerably new
 version of that module, maybe 1.61 circa Perl 5.8.0.  On earlier versions
