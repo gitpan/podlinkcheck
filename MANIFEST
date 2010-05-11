@@ -14,6 +14,7 @@ devel/htmlbatch.pl
 devel/podfind.pl
 devel/podparser.pl
 devel/run.pl
+devel/Test.pm
 inc/my_pod2html
 inc/MyMakeMakerExtras.pm
 lib/App/PodLinkCheck.pm
@@ -29,5 +30,6 @@ t/0-Test-DistManifest.t
 t/0-Test-Pod.t
 t/0-Test-Synopsis.t
 t/0-Test-YAML-Meta.t
+t/ParseSections.t
 t/PodLinkCheck.t
 META.yml                                 Module meta-data (added by MakeMaker)

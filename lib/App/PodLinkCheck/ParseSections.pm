@@ -22,7 +22,7 @@ use warnings;
 use base 'Pod::Simple';
 
 use vars '$VERSION';
-$VERSION = 3;
+$VERSION = 4;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -31,7 +31,6 @@ sub new {
   my ($class, $plc) = @_;
   my $self = $class->SUPER::new;
   $self->{(__PACKAGE__)}->{'sections'} = {};
-  $self->{(__PACKAGE__)}->{'plc'} = $plc;
   $self->nix_X_codes(1);
   $self->no_errata_section(1);
   $self->preserve_whitespace(1);
@@ -39,10 +38,6 @@ sub new {
     $self->no_whining(1);
   }
   return $self;
-}
-sub _plc {
-  my ($self) = @_;
-  return $self->{(__PACKAGE__)}->{'plc'};
 }
 
 # return hashref where keys are the section names
@@ -53,20 +48,25 @@ sub sections_hashref {
 
 sub _handle_element_start {
   my ($self, $ename, $attr) = @_;
-  if ($ename =~ /^(head|item-text)/) {
+  ### _handle_element_start(): $ename, $attr
+
+  # head1, head2, etc, and item-text, item-bullet, item-number
+  if ($ename =~ /^(head|item)/) {
     $self->{(__PACKAGE__)}->{'item_text'} = '';
   }
 }
 sub _handle_text {
   my ($self, $text) = @_;
+  ### _handle_text(): $text
   if (exists $self->{(__PACKAGE__)}->{'item_text'}) {
-    ### $text
     $self->{(__PACKAGE__)}->{'item_text'} .= $text;
   }
 }
 sub _handle_element_end {
   my ($self, $ename) = @_;
-  if ($ename =~ /^(head|item-text)/) {
+  ### _handle_element_end(): $ename
+
+  if ($ename =~ /^(head|item)/) {
     my $section = delete $self->{(__PACKAGE__)}->{'item_text'};
     ### section: $section
 

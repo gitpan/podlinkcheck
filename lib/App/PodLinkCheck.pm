@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright 2010 Kevin Ryde
 
 # This file is part of PodLinkCheck.
@@ -25,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 3;
+$VERSION = 4;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -44,7 +42,7 @@ sub command_line {
        'help'      => sub { $self->action_help },
        'verbose:i' => \$self->{'verbose'},
        'V+'        => \$self->{'verbose'},
-       'I=s'       => \$self->{'extra_INC'},
+       'I=s'       => $self->{'extra_INC'},
 
        '<>' => sub {
          my ($value) = @_;
@@ -59,12 +57,11 @@ sub command_line {
 
 sub action_version {
   my ($self) = @_;
-  print __x("PodLinkCheck version {version}\n",
-            version => $self->VERSION);
+  print __x("PodLinkCheck version {version}\n", version => $self->VERSION);
   if ($self->{'verbose'} >= 2) {
     require Pod::Simple;
     print __x("  Perl        version {version}\n", version => $]);
-    print __x("  Pod::Simple version {version}\n", version => $Pod::Simple);
+    print __x("  Pod::Simple version {version}\n", version => Pod::Simple->VERSION);
   }
   return 0;
 }
@@ -77,6 +74,8 @@ sub action_help {
   print __x("Usage: $progname [--options] file-or-dir...\n");
   print __x("  --help         print this message\n");
   print __x("  --version      print version number (and module versions if --verbose=2)\n");
+  print __x("  --verbose      print diagnostic details\n");
+  print __x("  --verbose=2    print even more diagnostics\n");
   return 0;
 }
 
@@ -296,6 +295,7 @@ sub report {
   print "$filename:$linenum:$column: $message\n";
 }
 
+# return a string of close matches of $section in the keys of %$hashref
 sub _section_approximations {
   my ($section, $hashref) = @_;
   $section = _section_approximation_crunch($section);
@@ -528,32 +528,76 @@ sub PATH {
 # return bool
 sub manpage_is_known {
   my ($self, $name) = @_;
+  my @manargs;
   my $section = '';
   if ($name =~ s/\s*\((.+)\)$//) {
     $section = $1;
+    @manargs = ($section);
   }
+
   my $r = \$self->{'manpage_is_known'}->{$section}->{$name};
   if (defined $$r) {
     return $$r;
   }
-  ### man: $name,$section
+  push @manargs, $name;
+  ### man: \@manargs
 
-  # --location is not in posix,
-  # http://www.opengroup.org/onlinepubs/009695399/utilities/man.html
-  # Is it man-db specific, or does it have a chance of working elsewhere?
-  #
-  # IPC::Run throws an error if the command is not found or if fork() fails.
-  #
-  my $path;
+  return ($$r = (_man_has_location_option()
+                 ? $self->_manpage_is_known_by_location(@manargs)
+                 : $self->_manpage_is_known_by_output(@manargs)));
+}
+
+# --location is not in posix,
+# http://www.opengroup.org/onlinepubs/009695399/utilities/man.html
+# Is it man-db specific, or does it have a chance of working elsewhere?
+#
+use constant::defer _man_has_location_option => sub {
   require IPC::Run;
+  require File::Spec;
+  my $str = '';
+  eval {
+    IPC::Run::run (['man','--help'],
+                   '<', \undef,
+                   '>', \$str,
+                   '2>', File::Spec->devnull);
+  };
+  ### _man_has_location_option(): 0 + ($str =~ /--location\b/)
+  return ($str =~ /--location\b/);
+};
+
+sub _manpage_is_known_by_location {
+  my ($self, @manargs) = @_;
+  ### _manpage_is_known_by_location() run: \@manargs
+  require IPC::Run;
+  my $str;
   if (! eval {
-    IPC::Run::run (['man',
-                    '--location',
-                    ($section eq '' ? () : ($section)),
-                    $name],
-                   \undef,  # stdin
-                   \$path,  # stdout
-                   sub{});  # stderr discard
+    IPC::Run::run (['man', '--location', @manargs],
+                   '<', \undef,  # stdin
+                   '>', \$str,  # stdout
+                   '2>', File::Spec->devnull);
+    1;
+  }) {
+    my $err = $@;
+    $err =~ s/\s+$//;
+    print __x("PodLinkCheck: error running 'man': {error}\n", error => $err);
+    return 0;
+  }
+  ### _manpage_is_known_by_location() output: $str
+  return ($str =~ /\n/ ? 1 : 0);
+}
+
+sub _manpage_is_known_by_output {
+  my ($self, @manargs) = @_;
+  ### _manpage_is_known_by_output() run: \@manargs
+  require IPC::Run;
+  require File::Temp;
+  my $fh = File::Temp->new (TEMPLATE => 'PodLinkCheck-man-XXXXXX',
+                            TMPDIR => 1);
+  if (! eval {
+    IPC::Run::run (['man', @manargs],
+                   '<', \undef,  # stdin
+                   '>', $fh,     # stdout
+                   '2>', File::Spec->devnull);
     1;
   }) {
     my $err = $@;
@@ -562,8 +606,13 @@ sub manpage_is_known {
     return 0;
   }
 
-  ### $path
-  return ($$r = ($path ne ''));
+  seek $fh, 0, 0;
+  foreach (1 .. 5) {
+    if (! defined (readline $fh)) {
+      return 0;
+    }
+  }
+  return 1;
 }
 
 1;
@@ -591,8 +640,8 @@ Create and return a PodLinkCheck object.
 =item C<$exitcode = $plc-E<gt>command_line>
 
 Run a PodLinkCheck as from the command line.  Arguments are taken from
-C<@ARGV> and the return is an exit status code suitable for C<exit>, meaning
-0 for success.
+C<@ARGV> and the return is an exit status code suitable for C<exit>, being 0
+for success.
 
 =item C<$plc-E<gt>check_file ($filename)>
 
@@ -623,7 +672,7 @@ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 more details.
 
 You should have received a copy of the GNU General Public License along with
-PodLinkCheck.  If not, see L<http://www.gnu.org/licenses/>.
+PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
 =cut
 

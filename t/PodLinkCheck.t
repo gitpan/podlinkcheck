@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
+use 5.005;
 use strict;
 use warnings;
 use App::PodLinkCheck;
@@ -29,7 +30,7 @@ BEGIN {
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 3;
+  my $want_version = 4;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },

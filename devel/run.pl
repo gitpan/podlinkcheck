@@ -24,6 +24,94 @@ use FindBin;
 my $progfile = "$FindBin::Bin/$FindBin::Script";
 print $progfile,"\n";
 
+
+{
+  require IPC::Run3;
+  open my $tty, '>&', 'STDOUT' or die;
+  print $tty "tty fileno ",fileno($tty),"\n";
+  open STDOUT, '>/tmp/out' or die;
+  open STDERR, '>/tmp/err' or die;
+  print $tty "fileno ",fileno(STDOUT)," ",fileno(STDERR),"\n";
+  # IPC::Run3::run3 (['echo','hi'], \undef, \*STDERR, \*STDOUT);
+  IPC::Run3::run3 (['man'], \undef, \*STDERR, \*STDOUT);
+  exit 0;
+}
+{
+  open FH, '>>&=', 4
+    or die "$!";
+  print "jdkfsl\n" or die;
+  print STDERR "fileno ",fileno(FH),"\n";
+  exit 0;
+}
+{
+#  delete $ENV{PATH};
+  require App::PodLinkCheck;
+  *App::PodLinkCheck::_man_has_location_option = sub(){0};
+  my $plc = App::PodLinkCheck->new;
+  my $name = 'fsdfjkdslcat(1)';
+  print "manpage_is_known() $name\n";
+  my $result = $plc->manpage_is_known($name);
+  print "  is ", $result, "\n";
+  print "done\n";
+  exit 0;
+}
+{
+  my $str = `sleep 20`;
+  print "parent done\n";
+  exit 0;
+}
+{
+  if (fork() == 0) {
+    print "exec\n";
+    exec 'sleep', '20';
+  }
+  print "parent\n";
+  sleep 100;
+  print "parent done\n";
+  exit 0;
+  # system
+}
+{
+  require IPC::Run3;
+  my $fh = File::Temp->new;
+  IPC::Run3::run3 (['sleep','100'], undef, undef, undef,
+                   return_if_system_error => 1);
+
+  IPC::Run3::run3 (['man','perltoc'],
+                   \undef,  # stdin
+                   $fh,     # stdout
+                   \undef,  # stderr
+                   return_if_system_error => 1);
+  seek $fh, 0, 0;
+  foreach (1 .. 5) {
+    if (! defined (readline $fh)) {
+      print "eof\n";
+      exit 0;
+    }
+  }
+  close $fh or die;
+  print "ok\n";
+  exit 0;
+}
+
+{
+  require App::PodLinkCheck;
+  print App::PodLinkCheck::_man_has_location_option();
+  exit 0;
+}
+{
+  my $page = 'perltoc';
+  open my $fh, '-|', 'man', $page;
+  foreach (1 .. 5) {
+    if (! defined (readline $fh)) {
+      print "eof\n";
+      exit 0;
+    }
+  }
+  close $fh or die;
+  print "ok\n";
+  exit 0;
+}
 {
   require GDBM_File;
   require Fcntl;
@@ -37,18 +125,6 @@ print $progfile,"\n";
   exit 0;
 }
 
-
-{
-  delete $ENV{PATH};
-  require App::PodLinkCheck;
-  my $plc = App::PodLinkCheck->new;
-  my $name = 'cat';
-  print "manpage_is_known() $name";
-  my $result = $plc->manpage_is_known($name);
-  print "is ", $result, "\n";
-  print "done\n";
-  exit 0;
-}
 
 {
   require IPC::Run;
@@ -177,3 +253,57 @@ print $progfile,"\n";
 # Pod::Man
 
 
+
+__END__
+
+#------------------------------------------------------------------------------
+# using IPC::Run3 ... system() sigint trapped
+
+# --location is not in posix,
+# http://www.opengroup.org/onlinepubs/009695399/utilities/man.html
+# Is it man-db specific, or does it have a chance of working elsewhere?
+#
+use constant::defer _man_has_location_option => sub {
+  require IPC::Run3;
+  my $str;
+  IPC::Run3::run3 (['man','--help'],
+                   \undef,  # stdin
+                   \$str,   # stdout
+                   \undef,  # stderr
+                   return_if_system_error => 1);
+  ### _man_has_location_option(): 0 + ($str =~ /--location\b/)
+  $str =~ /--location\b/
+};
+
+sub _manpage_is_known_by_location {
+  my ($self, @name) = @_;
+  ### _manpage_is_known_by_location() run: \@name
+  require IPC::Run3;
+  my $str;
+  IPC::Run3::run3 (['man', '--location', @name],
+                   \undef,  # stdin
+                   \$str,   # stdout
+                   \undef,  # stderr
+                   return_if_system_error => 1);
+  ### _manpage_is_known_by_location() output: $str
+  return ($str =~ /^.*\n$/ ? 1 : 0);
+}
+
+sub _manpage_is_known_by_output {
+  my ($self, @name) = @_;
+  require IPC::Run3;
+  my $fh = File::Temp->new (TEMPLATE => 'PodLinkCheck-man-XXXXXX',
+                            TMPDIR => 1);
+  IPC::Run3::run3 (['man', @name],
+                   \undef,  # stdin
+                   $fh,     # stdout
+                   \undef,  # stderr
+                   return_if_system_error => 1);
+  seek $fh, 0, 0;
+  foreach (1 .. 5) {
+    if (! defined (readline $fh)) {
+      return 0;
+    }
+  }
+  return 1;
+}

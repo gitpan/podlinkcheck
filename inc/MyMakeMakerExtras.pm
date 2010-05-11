@@ -260,7 +260,7 @@ pc:
 HERE
   # "podchecker -warnings -warnings" too much reporting every < and >
   $post .= $podcoverage . <<'HERE';
-	-podlinkcheck `ls $(LINT_FILES) | grep -v '\.bash$$|\.desktop$$\.png$$|\.xpm$$'`
+	-podlinkcheck -I lib `ls $(LINT_FILES) | grep -v '\.bash$$|\.desktop$$\.png$$|\.xpm$$'`
 	-podchecker `ls $(LINT_FILES) | grep -v '\.bash$$|\.desktop$$\.png$$|\.xpm$$'`
 	perlcritic $(LINT_FILES)
 unused:
@@ -312,7 +312,7 @@ check-debug-constants:
 	if egrep -n 'DEBUG => [1-9]|^[ \t]*use Smart::Comments' $(EXE_FILES) $(TO_INST_PM); then exit 1; else exit 0; fi
 
 check-spelling:
-	if egrep -nHi 'noticable|continous|existant|explict|agument|destionation|\bthe the\b|\bnote sure\b' -r . \
+	if egrep -nHi 'requrie|noticable|continous|existant|explict|agument|destionation|\bthe the\b|\bnote sure\b' -r . \
 	  | egrep -v '(MyMakeMakerExtras|Makefile|dist-deb).*grep -nH'; \
 	then false; else true; fi
 

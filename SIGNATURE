@@ -15,41 +15,43 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 5c5fe7e3ef7c8054ba37c472840280f9b2252b30 Changes
-SHA1 81c86d30ea1d97b305d82205da20629c946bcacb MANIFEST
+SHA1 9a4ab25f9818e0b1fc2bf09003d7f1cf5a37ad52 Changes
+SHA1 74ffbf1a6d59fd7dfbae30a50ed68be0d724b67d MANIFEST
 SHA1 00e97fa7664a1ea29a3be5b0b2ec2b0076e002f1 MANIFEST.SKIP
-SHA1 46fa9372928c9dca7407195ef06eaf5e7dc0e471 META.yml
+SHA1 c36a194c6410c7804d702389a49e898398827ed5 META.yml
 SHA1 38ee725b98b6386396e979092f9fb9febec9beb7 Makefile.PL
-SHA1 c194c9c2996cf5f76e0589a8f192534909931109 debian/changelog
+SHA1 6ae3b8c56e86722fc5c4236540e9858e382fe576 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
 SHA1 981affe61b0cba67510965d5031c1b7e7cb316f3 debian/control
 SHA1 56761d0926e31c025e9669f2be2e5b8a4b478f82 debian/copyright
 SHA1 085206628ab15ffb2c4b181b520330c9bb5b2133 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 53a196932bebde7d88cccc83689a6e82b31f5213 debian/watch
+SHA1 7b0b11405ec4bf0910f3bd27cd2d9d1a3bbf0443 devel/Test.pm
 SHA1 149c410e44106b78518a80b975b24309cfa21fb5 devel/cpan-sqlite.pl
 SHA1 9d48ce8132f3dd3029ca8a608cf42ce25bc2852b devel/cpan.pl
 SHA1 063f4892aed5a8a4d1ec30915aa9da26e3f1858f devel/cpanplus.pl
 SHA1 9545f1daca98ff5423d61427b9fe726cb4995e8e devel/htmlbatch.pl
 SHA1 925d2e5249c687285187b14652541878b070c225 devel/podfind.pl
 SHA1 84493abbeaba4aeef64859e710a21a3ba08b10e7 devel/podparser.pl
-SHA1 27654569ed450b2c75b5cb96724a9c7adafde058 devel/run.pl
-SHA1 0c1b90a4a43fd503eaf53fad2056da1d04468e16 inc/MyMakeMakerExtras.pm
+SHA1 b2302c1c1dc8c2f2cf9dd5edebd272b1188deeee devel/run.pl
+SHA1 f0016bb5fbe1ba38245f6264210252af0583fa0e inc/MyMakeMakerExtras.pm
 SHA1 63427b66eb26f013f10c835b0cf320c93361f310 inc/my_pod2html
-SHA1 df63ee94814514a6d52a2c1fa520e86f318c2c44 lib/App/PodLinkCheck.pm
-SHA1 6cc451c36b11e6e5bb51e964936fb1a4536ad61a lib/App/PodLinkCheck/ParseLinks.pm
-SHA1 4f6536f3e740ebf27268098db1d3f72d2c5f59b0 lib/App/PodLinkCheck/ParseSections.pm
-SHA1 d036f67ea0bd095a26a0e956112ab8dd95bad69e podlinkcheck
+SHA1 6513e02bf4d150834454426a9b2149d012d564d1 lib/App/PodLinkCheck.pm
+SHA1 7eb6bb6ec4df8f231437cd417994870ec62df6f1 lib/App/PodLinkCheck/ParseLinks.pm
+SHA1 4d7b11565bed997f15e3e3bf65a167b1559d0455 lib/App/PodLinkCheck/ParseSections.pm
+SHA1 a4c3c2b6608253c09de349cfcacc021cc554d092 podlinkcheck
 SHA1 d5d5c83c83918d8c97ca79e92ea840cdf277f01f t/0-META-read.t
 SHA1 37abd43b41068804ea4bb099fdd89af21be82926 t/0-Test-DistManifest.t
 SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 t/0-Test-Pod.t
-SHA1 5fa94e1e88e44064d1e6b21c88a4c9374a17bfd1 t/0-Test-Synopsis.t
+SHA1 1de8f07883f6bf1a2ef79f2cb8adf1deb3f61cee t/0-Test-Synopsis.t
 SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 t/0-Test-YAML-Meta.t
-SHA1 ab647503a075f1b9b345a1b76c32ab2ee4c2681e t/PodLinkCheck.t
+SHA1 77d6e2d7b80be22f7dde4fc7445da8b4f806f898 t/ParseSections.t
+SHA1 c8506d286d62c373c28a558713621260e20e97cb t/PodLinkCheck.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFL5gKELFMCIV9q3ToRAkgAAKCthQR1SenYs7nkBFvoNYYZL4dSTACeIeD8
-gbbpW/ZLuKgq30KXqzwU1O0=
-=CWFQ
+iD8DBQFL6Pi6LFMCIV9q3ToRAj6bAKC4KWUiUnN8ZM4rRoQAm7C+7/ljhwCfbiaw
+0XNC2rxfwTXpMF656QSPdVU=
+=2Cmk
 -----END PGP SIGNATURE-----
