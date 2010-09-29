@@ -17,6 +17,9 @@ along with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+Version 5, September 2010
+    - test manifest only as an author test
+
 Version 4, May 2010
     - allow refs to bullet and number items
     - check manpages by plain man run if --location not available

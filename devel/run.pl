@@ -26,6 +26,16 @@ print $progfile,"\n";
 
 
 {
+  print "IPC::Open3\n";
+  $^O = 'os2';
+  require IPC::Open3;
+  my $pid = IPC::Open3::open3 (\*STDIN, \*STDOUT, \*STDERR,
+                               'echo hi; sleep 100');
+  sleep 1;
+  #  print "pid $pid\n";
+  exit 0;
+}
+{
   require IPC::Run3;
   open my $tty, '>&', 'STDOUT' or die;
   print $tty "tty fileno ",fileno($tty),"\n";

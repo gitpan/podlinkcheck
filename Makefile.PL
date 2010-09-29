@@ -38,6 +38,7 @@ MyMakeMakerExtras::WriteMakefile
                     'Pod::Simple' => 0,
                     'Pod::Find' => 0,
                     'File::Find::Iterator' => 0,
+                    'File::Spec' => '0.8', # version 0.8 for ->devnull()
                     'IPC::Run' => 0,
                     'List::Util' => 0,
                     'Locale::TextDomain' => 0,
@@ -61,21 +62,16 @@ MyMakeMakerExtras::WriteMakefile
                              },
                },
 
-            maximum_tests
-            => { description => 'Have "make test" do as much as possible.',
-                 requires => { 'Test::NoWarnings' => 0,
+            maximum_devel
+            => { description => 'Stuff used variously for development.',
+                 requires => { 'IO::String' => 0,
+                               'Smart::Comments' => 0,
+                               'Pod::Escapes' => 0,
+                               'Pod::Parser' => 0,
+                               'Pod::ParseLink' => 0,
+                               'Pod::Simple::HTMLBatch' => 0,
                              },
                },
-             maximum_devel
-             => { description => 'Stuff used variously for development.',
-                  requires => { 'IO::String' => 0,
-                                'Smart::Comments' => 0,
-                                'Pod::Escapes' => 0,
-                                'Pod::Parser' => 0,
-                                'Pod::ParseLink' => 0,
-                                'Pod::Simple::HTMLBatch' => 0,
-                              },
-                },
            },
       },
   );

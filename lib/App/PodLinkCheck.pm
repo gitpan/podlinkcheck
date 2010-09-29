@@ -23,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 4;
+$VERSION = 5;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -383,7 +383,7 @@ sub _module_known_CPAN_SQLite {
     $self->{'cpan_sqlite'} = 0;
 
     if ($self->_CPAN_config) {
-      print __x("PodLinkCheck: load {module} for module existence checking\n",
+      print __x("PodLinkCheck: loading {module} for module existence checking\n",
                 module => 'CPAN::SQLite');
       if (! eval { require CPAN::SQLite }) {
         print __x("Cannot load {module}, skipping -- {error}\n",
@@ -622,7 +622,7 @@ __END__
 
 =head1 NAME
 
-App::PodLinkCheck -- check links upload files to an FTP server, for push mirroring
+App::PodLinkCheck -- check Perl pod LE<lt>E<gt> link references
 
 =head1 SYNOPSIS
 
