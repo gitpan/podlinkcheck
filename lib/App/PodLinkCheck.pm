@@ -23,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 5;
+$VERSION = 6;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -404,9 +404,22 @@ sub _module_known_CPAN_SQLite {
     }
   }
 
-  return ($self->{'cpan_sqlite'}
-          && $self->{'cpan_sqlite'}->query (mode => 'module',
-                                            name => $module));
+  my $cpan_sqlite = $self->{'cpan_sqlite'} || return 0;
+
+  # Have struck errors from cpantesters creating db tables.  Not sure if it
+  # might happen in a real run.  Guard with an eval.
+  #
+  my $result;
+  if (! eval { $result = $cpan_sqlite->query (mode => 'module',
+                                              name => $module);
+               1 }) {
+    print __x("{module} error, disabling -- {error}\n",
+              module => 'CPAN::SQLite',
+              error  => $@);
+    $self->{'cpan_sqlite'} = 0;
+    return 0;
+  }
+  return $result;
 }
 
 my $use_CPAN;
@@ -469,9 +482,7 @@ sub _module_known_CPANPLUS {
     $self->{'cpanplus'} = CPANPLUS::Backend->new ($conf);
   }
 
-  if (! $self->{'cpanplus'}) {
-    return 0;
-  }
+  my $cpanplus = $self->{'cpanplus'} || return 0;
 
   # module_tree() returns false '' for not found.
   #
@@ -480,10 +491,10 @@ sub _module_known_CPANPLUS {
   # with an eval.
   #
   my $result;
-  if (! eval { $result = $self->{'cpanplus'}->module_tree($module); 1 }) {
+  if (! eval { $result = $cpanplus->module_tree($module); 1 }) {
     print __x("{module} error, disabling -- {error}\n",
               module => 'CPANPLUS',
-              error => $@);
+              error  => $@);
     $self->{'cpanplus'} = 0;
     return 0;
   }

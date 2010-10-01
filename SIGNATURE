@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.63.
+signed via the Module::Signature module, version 0.66.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,12 +15,12 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 36a8b9949b54b9ce129833e3ca2227ef94c76ec1 Changes
+SHA1 68f760fbf1219ea00090ae2836a17b32f3ac5c8d Changes
 SHA1 2169ad8f744017e3b65a9d8ca1bd81fb35078784 MANIFEST
 SHA1 e6e7c2904ea5d300c0ddf70fc5a80f5005229aa9 MANIFEST.SKIP
-SHA1 ccbbfda1129beaf11de3fbf3d84aed3fed792ae8 META.yml
+SHA1 117a2a013ec620a09f4dc0f3780585295cdafbc5 META.yml
 SHA1 6c25f5d60de2c8a59c0546cff72c361fc459565d Makefile.PL
-SHA1 0d6474e455e25583c74f15567c0e5d87c46f6eff debian/changelog
+SHA1 1de7faa2345c6ee4905dbb122dcd962f28b40897 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
 SHA1 53ef2c7bf29af654d6327b862dc8f7c8590a14a6 debian/control
 SHA1 56761d0926e31c025e9669f2be2e5b8a4b478f82 debian/copyright
@@ -37,13 +37,13 @@ SHA1 84493abbeaba4aeef64859e710a21a3ba08b10e7 devel/podparser.pl
 SHA1 c9ee0dd42f79f14bbf8f565f8e5b519ff967be6a devel/run.pl
 SHA1 3cf3345a9177dbe362dfc8fbf192272f4a611ca8 inc/MyMakeMakerExtras.pm
 SHA1 692a1ddc2ca6b98cac7b48ea40bc1ac1509e8ed9 inc/my_pod2html
-SHA1 4e08f2ee4fe19b08462f05185bf3b47f83c627a1 lib/App/PodLinkCheck.pm
-SHA1 f7282a6f190e93459499c29ea2c0031b89f1d415 lib/App/PodLinkCheck/ParseLinks.pm
-SHA1 b8f7cf9d4adbddd93b6ff331be2b68c51f555a18 lib/App/PodLinkCheck/ParseSections.pm
-SHA1 5da15386631bd793da22b1d3c0de9bd62428faf8 podlinkcheck
+SHA1 7c54ec725e4948a6e68abd7143dcaf4642a12e92 lib/App/PodLinkCheck.pm
+SHA1 6646f0ecff94119757579f878337b8f36a7867c6 lib/App/PodLinkCheck/ParseLinks.pm
+SHA1 b470e1dda6e3be2cf88f423fe552c264a0ca3a4d lib/App/PodLinkCheck/ParseSections.pm
+SHA1 eb0ffdf2b1a1ad728223e5e95654803fd881ab80 podlinkcheck
 SHA1 5e5680b471811244fe93571efc23e7b6089cac3b t/MyTestHelpers.pm
-SHA1 110094f75b73410c995a14c023e252fbc4fbddbc t/ParseSections.t
-SHA1 fda037880d0e053b60d2d77261b0c9e0675537bf t/PodLinkCheck.t
+SHA1 b077efcb8057e2144488b83e80981f4f5d3d309d t/ParseSections.t
+SHA1 c27e28887214d7402778c35790c71050ddd7eacf t/PodLinkCheck.t
 SHA1 9127f78a0dfa04976acbb979dd7862ef59a74c58 xt/0-META-read.t
 SHA1 37abd43b41068804ea4bb099fdd89af21be82926 xt/0-Test-DistManifest.t
 SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 xt/0-Test-Pod.t
@@ -52,7 +52,7 @@ SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 xt/0-Test-YAML-Meta.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFMo7lxLFMCIV9q3ToRAmkiAKC1w+JeR8hZtQobBVZRphRsCojhjwCfeiYR
-Yzt1pKasFMOF3wyR0WaROz4=
-=sQ7M
+iD8DBQFMplZuLFMCIV9q3ToRAjhrAJ0Uzs4SOuSTrafrYzTaCCqvLdHpVACaAyMO
+Aq2tXuQyPf4VhTmSLuGnR9s=
+=KNH8
 -----END PGP SIGNATURE-----

@@ -29,7 +29,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 5;
+  my $want_version = 6;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },
@@ -106,7 +106,7 @@ foreach my $elem (['<', 'E<lt>'],
   foreach my $method ('_module_known_CPAN_SQLite',
                       '_module_known_CPAN',
                       '_module_known_CPANPLUS') {
-    diag $method;
+    diag "$method()";
     ok (! $plc->$method ('No::Such::Module'),
         "$method() No::Such::Module");
     diag "$method() Pod::Find is ", $plc->$method('Pod::Find');
@@ -119,9 +119,14 @@ foreach my $elem (['<', 'E<lt>'],
 
 #------------------------------------------------------------------------------
 
-diag 'INC is ',join (' ',@INC);
-diag 'PATH is ',$ENV{'PATH'};
-require Config;
-diag 'Config{path_sep} is ', $Config::Config{'path_sep'};
+END {
+  diag 'INC is ',join (' ',@INC);
+  diag 'PATH is ',$ENV{'PATH'};
+  require Config;
+  diag 'Config{path_sep} is ', $Config::Config{'path_sep'};
+  if (eval { require File::HomeDir }) {
+    diag 'File::HomeDir is ', File::HomeDir->my_home;
+  }
+}
 
 exit 0;
