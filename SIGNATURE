@@ -15,44 +15,44 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 68f760fbf1219ea00090ae2836a17b32f3ac5c8d Changes
+SHA1 a1992b045b5319761383368193fbdf4937ded273 Changes
 SHA1 2169ad8f744017e3b65a9d8ca1bd81fb35078784 MANIFEST
-SHA1 e6e7c2904ea5d300c0ddf70fc5a80f5005229aa9 MANIFEST.SKIP
-SHA1 117a2a013ec620a09f4dc0f3780585295cdafbc5 META.yml
-SHA1 6c25f5d60de2c8a59c0546cff72c361fc459565d Makefile.PL
-SHA1 1de7faa2345c6ee4905dbb122dcd962f28b40897 debian/changelog
+SHA1 6c771cc4b0718f7bc9c9af01889700d7bce0a8e6 MANIFEST.SKIP
+SHA1 a66fa6ab4ace12e751b6dab1ec118ed83601ba27 META.yml
+SHA1 883e9c7c8893824387ffc0ee2fe4a74f6da5c612 Makefile.PL
+SHA1 d66b49ccf932ca260f6f33444f4209c14a34af84 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
-SHA1 53ef2c7bf29af654d6327b862dc8f7c8590a14a6 debian/control
-SHA1 56761d0926e31c025e9669f2be2e5b8a4b478f82 debian/copyright
+SHA1 4856eab24ced5910d8479490805b6d5f18aa9d25 debian/control
+SHA1 1e8238f11e8b0cd9ee2a0bd988cffa20a33e4810 debian/copyright
 SHA1 085206628ab15ffb2c4b181b520330c9bb5b2133 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 53a196932bebde7d88cccc83689a6e82b31f5213 debian/watch
 SHA1 ad86631cde06ef49eac23447e3c2b290353a6127 devel/Test.pm
-SHA1 149c410e44106b78518a80b975b24309cfa21fb5 devel/cpan-sqlite.pl
-SHA1 9d48ce8132f3dd3029ca8a608cf42ce25bc2852b devel/cpan.pl
-SHA1 063f4892aed5a8a4d1ec30915aa9da26e3f1858f devel/cpanplus.pl
-SHA1 e5e6c8cf5eb5277cdb4be7160c16bc68494f9324 devel/htmlbatch.pl
-SHA1 925d2e5249c687285187b14652541878b070c225 devel/podfind.pl
-SHA1 84493abbeaba4aeef64859e710a21a3ba08b10e7 devel/podparser.pl
-SHA1 c9ee0dd42f79f14bbf8f565f8e5b519ff967be6a devel/run.pl
-SHA1 3cf3345a9177dbe362dfc8fbf192272f4a611ca8 inc/MyMakeMakerExtras.pm
-SHA1 692a1ddc2ca6b98cac7b48ea40bc1ac1509e8ed9 inc/my_pod2html
-SHA1 7c54ec725e4948a6e68abd7143dcaf4642a12e92 lib/App/PodLinkCheck.pm
-SHA1 6646f0ecff94119757579f878337b8f36a7867c6 lib/App/PodLinkCheck/ParseLinks.pm
-SHA1 b470e1dda6e3be2cf88f423fe552c264a0ca3a4d lib/App/PodLinkCheck/ParseSections.pm
-SHA1 eb0ffdf2b1a1ad728223e5e95654803fd881ab80 podlinkcheck
-SHA1 5e5680b471811244fe93571efc23e7b6089cac3b t/MyTestHelpers.pm
-SHA1 b077efcb8057e2144488b83e80981f4f5d3d309d t/ParseSections.t
-SHA1 c27e28887214d7402778c35790c71050ddd7eacf t/PodLinkCheck.t
-SHA1 9127f78a0dfa04976acbb979dd7862ef59a74c58 xt/0-META-read.t
-SHA1 37abd43b41068804ea4bb099fdd89af21be82926 xt/0-Test-DistManifest.t
-SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 xt/0-Test-Pod.t
-SHA1 1de8f07883f6bf1a2ef79f2cb8adf1deb3f61cee xt/0-Test-Synopsis.t
-SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 xt/0-Test-YAML-Meta.t
+SHA1 2077072592ea692a91eb3c721ac6363843fd3a0f devel/cpan-sqlite.pl
+SHA1 46aee627e71f2234d0067d90edc9bdebc4ce9a03 devel/cpan.pl
+SHA1 493024a8edca5365df78961cbe53d98125e0e571 devel/cpanplus.pl
+SHA1 f3287299f972cdd324a019e3fb6e1b54e65c857e devel/htmlbatch.pl
+SHA1 f93e3cbadfacae44fa6783ad90ec733de179bfa0 devel/podfind.pl
+SHA1 c2f191c83bc3b233b30a3818d532a6d8d9363901 devel/podparser.pl
+SHA1 e353edcb901ab7ca27c5018b29ede836ff4545c4 devel/run.pl
+SHA1 cf647ee28a7aaad9896d0063f8a2529919ccfcd3 inc/MyMakeMakerExtras.pm
+SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf inc/my_pod2html
+SHA1 289c3caa7966ed34d02360bd9737a4943865436e lib/App/PodLinkCheck.pm
+SHA1 447f100939e4f6dd2b8084c05bac011ad03c63b8 lib/App/PodLinkCheck/ParseLinks.pm
+SHA1 261eb0c4ed2796553c302b877ef8a2a91f726030 lib/App/PodLinkCheck/ParseSections.pm
+SHA1 dbc47ec4f01451b3b658ba0db579af821b0ec912 podlinkcheck
+SHA1 36b8eba56c87d62b1b41959187c717577dc16fa5 t/MyTestHelpers.pm
+SHA1 b494e33cefaceb2b1e95f28326eb7c45533cacfb t/ParseSections.t
+SHA1 7ea37dade5d617f5fc4c970ef3bf8422b31f200f t/PodLinkCheck.t
+SHA1 0279c9310ec528d10a2a14e602bf98f1c776cce1 xt/0-META-read.t
+SHA1 8a5e0f34131de34e584fbb1939c191a152566155 xt/0-Test-DistManifest.t
+SHA1 cc04a5fe5d8b8b38bfd56453d5d2686c8ea58783 xt/0-Test-Pod.t
+SHA1 8cc52e23427a82cfef5802bf512b13c65de2687a xt/0-Test-Synopsis.t
+SHA1 4c14845872d6eb4280e12f862d6ba2c343358c60 xt/0-Test-YAML-Meta.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFMplZuLFMCIV9q3ToRAjhrAJ0Uzs4SOuSTrafrYzTaCCqvLdHpVACaAyMO
-Aq2tXuQyPf4VhTmSLuGnR9s=
-=KNH8
+iD8DBQFNUI3ULFMCIV9q3ToRAs1FAJsF9t8/8Ym0DdNMWnJG7VOhHr8KQwCfasBU
+GFeLWTwzb/QQdhGUgCaemxM=
+=kgWk
 -----END PGP SIGNATURE-----

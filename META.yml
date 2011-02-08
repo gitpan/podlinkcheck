@@ -1,7 +1,7 @@
 --- #YAML:1.0
 name:               podlinkcheck
-version:            6
-abstract:           Upload files to a remote FTP server.
+version:            7
+abstract:           Check POD L<> link references.
 author:
     - Kevin Ryde <user42@zip.com.au>
 license:            gpl
@@ -17,11 +17,10 @@ requires:
     IPC::Run:             0
     List::Util:           0
     Locale::TextDomain:   0
-    perl:                 5.005
+    perl:                 5.006
     Pod::Find:            0
     Pod::Simple:          0
     Test::More:           0
-    warnings:             0
 resources:
     homepage:  http://user42.tuxfamily.org/podlinkcheck/index.html
     license:   http://www.gnu.org/licenses/gpl.html

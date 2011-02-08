@@ -1,4 +1,4 @@
-# Copyright 2010 Kevin Ryde
+# Copyright 2010, 2011 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -16,14 +16,14 @@
 # with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
 package App::PodLinkCheck;
-use 5.005;
+use 5.006;
 use strict;
 use warnings;
 use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 6;
+$VERSION = 7;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -244,7 +244,7 @@ sub check_file {
         # print "$filename:$linenum:$column: target \"$to\" is both external module/program and internal section\n";
       } else {
         $self->report ($filename, $linenum, $column,
-                       __x('internal one-word link recommend {slash} or {quote} style',
+                       __x('internal one-word link recommend guard against ambiguity with {slash} or {quote}',
                            slash => "L</"._escape_angles($to).">",
                            quote => "L<\""._escape_angles($to)."\">"));
       }
@@ -670,7 +670,7 @@ http://user42.tuxfamily.org/podlinkcheck/index.html
 
 =head1 LICENSE
 
-Copyright 2010 Kevin Ryde
+Copyright 2010, 2011 Kevin Ryde
 
 PodLinkCheck is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

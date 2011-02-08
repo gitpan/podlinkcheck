@@ -1,4 +1,4 @@
-# Copyright 2010 Kevin Ryde
+# Copyright 2010, 2011 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -31,7 +31,7 @@ Bugs: mailto:user42@zip.com.au
 
 Package: podlinkcheck
 Architecture: all
-Depends: perl (>= 5.005), libpod-simple-perl | perl (>= 5.10), libpod-find-perl | perl (>= 5.6), libfile-find-iterator-perl, libconstant-defer-perl, libwarnings-perl | perl-modules (>= 5.6), libintl-perl, libscalar-list-utils-perl | perl (>= 5.8), libipc-run-perl, ${perl:Depends}, ${misc:Depends}
+Depends: perl (>= 5.005), libpod-simple-perl | perl (>= 5.10), libpod-find-perl | perl (>= 5.6), libfile-find-iterator-perl, libconstant-defer-perl, libintl-perl, libscalar-list-utils-perl | perl (>= 5.8), libipc-run-perl, ${perl:Depends}, ${misc:Depends}
 Suggests: libintl-xs-perl
 Description: Check L<> links in Perl POD
  Link target module and sections are checked.

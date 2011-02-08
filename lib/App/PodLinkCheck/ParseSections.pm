@@ -1,4 +1,4 @@
-# Copyright 2010 Kevin Ryde
+# Copyright 2010, 2011 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -16,13 +16,13 @@
 # with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
 package App::PodLinkCheck::ParseSections;
-use 5.005;
+use 5.006;
 use strict;
 use warnings;
 use base 'Pod::Simple';
 
 use vars '$VERSION';
-$VERSION = 6;
+$VERSION = 7;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -122,7 +122,7 @@ http://user42.tuxfamily.org/podlinkcheck/index.html
 
 =head1 LICENSE
 
-Copyright 2010 Kevin Ryde
+Copyright 2010, 2011 Kevin Ryde
 
 PodLinkCheck is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

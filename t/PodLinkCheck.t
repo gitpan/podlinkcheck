@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2010 Kevin Ryde
+# Copyright 2010, 2011 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 #
@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
-use 5.005;
+use 5.006;
 use strict;
 use warnings;
 use App::PodLinkCheck;
@@ -29,7 +29,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 6;
+  my $want_version = 7;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },
@@ -88,7 +88,8 @@ foreach my $elem (['<', 'E<lt>'],
                   ['x<y>z', 'xE<lt>yE<gt>z'],
                  ) {
   my ($str, $want) = @$elem;
-  is (App::PodLinkCheck::_escape_angles($str), $want,
+  is (App::PodLinkCheck::_escape_angles($str), ## no critic (ProtectPrivateSubs)
+      $want,
       "_escape_angles() '$str'");
 }
 
