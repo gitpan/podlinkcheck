@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               podlinkcheck
-version:            7
+version:            8
 abstract:           Check POD L<> link references.
 author:
     - Kevin Ryde <user42@zip.com.au>
@@ -28,8 +28,9 @@ no_index:
     directory:
         - t
         - inc
+        - xt
         - devel
-generated_by:       ExtUtils::MakeMaker version 6.55_02
+generated_by:       ExtUtils::MakeMaker version 6.56
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

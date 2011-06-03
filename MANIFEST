@@ -29,6 +29,8 @@ t/MyTestHelpers.pm
 t/ParseSections.t
 t/PodLinkCheck.t
 xt/0-META-read.t
+xt/0-no-debug-left-on.t
+xt/0-Test-ConsistentVersion.t
 xt/0-Test-DistManifest.t
 xt/0-Test-Pod.t
 xt/0-Test-Synopsis.t

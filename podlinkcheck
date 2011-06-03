@@ -23,7 +23,7 @@ use warnings;
 use App::PodLinkCheck;
 
 use vars '$VERSION';
-$VERSION = 7;
+$VERSION = 8;
 
 my $plc = App::PodLinkCheck->new;
 exit $plc->command_line;
@@ -56,10 +56,10 @@ for example to churn through all installed add-on modules,
 
     podlinkcheck /usr/share/perl5
 
-The things usually detected are typos in the target page or section name,
+The bad links usually detected are typos in the target page or section name,
 and sometimes C<LE<lt>text|targetE<gt>> parts the wrong way around.
-Occasionally there may be an C<LE<lt>fooE<gt>> used where C<IE<lt>E<gt>> or
-C<CE<lt>E<gt>> was intended.
+Occasionally there may be an C<LE<lt>fooE<gt>> used where just markup
+C<IE<lt>E<gt>> or C<CE<lt>E<gt>> was intended.
 
 =head2 Checks
 
@@ -85,7 +85,7 @@ Internal links are sometimes written LE<lt>SYNOPSISE<gt> etc but the Perl
 5.10 C<perlpodspec> advice is to avoid ambiguity between an external module
 and a one-word internal section by writing a section with / or quotes,
 
-=for ProhibitVerbatimMarkup allow next
+=for ProhibitVerbatimMarkup allow next 2
 
     See L</SYNOPSIS> above.
 
@@ -98,10 +98,10 @@ meaning external).
 
 =head2 Section Name Matching
 
-An LE<lt>E<gt> can use just the first word of an item or heading.  This is
-how C<Pod::Checker> behaves and it's particularly good for C<perlfunc> cross
-references where just the function name can be given without the full
-argument list of the C<=item>.  Eg.
+An LE<lt>E<gt> section name can use just the first word of an item or
+heading.  This is how C<Pod::Checker> behaves and it's particularly good for
+C<perlfunc> cross references where just the function name can be given
+without the full argument list of the C<=item>.  Eg.
 
 =for ProhibitVerbatimMarkup allow next
 
@@ -113,7 +113,7 @@ C<Pod::Checker> 1.45 behaves.  If the targets are your own then you might
 make the first word or full item something sensible to appear in an
 LE<lt>E<gt>.
 
-When a target section is not found C<podlinkcheck> will try to suggest
+If a target section is not found then C<podlinkcheck> will try to suggest
 something close, eg. differing only in punctuation or upper/lower case.
 Some of the POD translators may ignore upper/lower case, but it's good to
 write an LE<lt>E<gt> the same as the actual target.
@@ -122,9 +122,9 @@ write an LE<lt>E<gt> the same as the actual target.
       (file /usr/share/perl5/CHI.pm)
       perhaps it should be "CONSTRUCTOR"
 
-For reference, numbered C<=item> sections are written in an LE<lt>E<gt>
-without the number.  This is a good thing since the numbering might change.
-If C<podlinkcheck> suggests a number in a target then it may be a mistake in
+For reference, numbered C<=item> section names go in an LE<lt>E<gt> without
+the number.  This is a good thing since the numbering might change.  If
+C<podlinkcheck> suggests a number in a target then it may be a mistake in
 the target document.  A numbered item should have the number alone on the
 C<=item> and the section name as the following paragraph.
 
@@ -142,7 +142,7 @@ The second item "2. The Second Thing" is not numbered, but rather text that
 happens to start with a number.  Of course sometimes that's what you want,
 eg.
 
-    =item 64 bit support
+    =item 64 Bit Support
 
 C<podlinkcheck> uses C<Pod::Simple> for parsing and so follows its
 interpretation of the various hairy LE<lt>E<gt> link forms.  If an
@@ -153,8 +153,8 @@ basic C<pod2man>.
 
 =head1 OTHER WAYS TO DO IT
 
-C<podchecker> (the C<Pod::Checker> module) checks internal links (along with
-POD markup syntax), but it doesn't check external links.
+C<podchecker> (the C<Pod::Checker> module) checks internal links along with
+POD markup syntax, but it doesn't check external links.
 
 =head1 BUGS
 
@@ -165,11 +165,11 @@ parse.
 C<CPAN::SQLite> is checked first because it's fast and compact, but if a
 target is not found there then the C<CPAN> and C<CPANPLUS> caches are both
 loaded and checked.  This may use a lot of memory for a non-existent target,
-though it does allow for those two more up-to-date and the SQLite.
+but it's possible they're more up-to-date and the SQLite.
 
 Currently the code consulting C<CPAN.pm> may need a tolerably new version of
-that module, maybe 1.61 circa Perl 5.8.0.  On earlier versions the index
-will not be used.
+that module, maybe 1.61 circa Perl 5.8.0.  On earlier versions the index is
+not used.
 
 =head1 ENVIRONMENT VARIABLES
 
@@ -182,6 +182,11 @@ Search path for installed scripts.
 =item C<HOME>
 
 Used by the various C<CPAN> modules for the C<~/.cpan> directory.
+
+=item C<PERL5LIB>
+
+The usual extra Perl module directories (see L<perlrun/ENVIRONMENT>), which
+is also where link targets are sought.
 
 =back
 

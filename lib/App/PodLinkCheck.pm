@@ -23,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 7;
+$VERSION = 8;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -101,7 +101,6 @@ sub check_tree {
   foreach my $filename (@files_or_directories) {
     if (-d $filename) {
       require File::Find::Iterator;
-      require Sort::Key::Natural;
       my $finder = File::Find::Iterator->create (dir => [$filename],
                                                  order => $order,
                                                  filter => \&_is_perlfile);
