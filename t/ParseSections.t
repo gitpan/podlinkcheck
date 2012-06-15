@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2010, 2011 Kevin Ryde
+# Copyright 2010, 2011, 2012 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 #
@@ -29,7 +29,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 8;
+  my $want_version = 9;
   is ($App::PodLinkCheck::ParseSections::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck::ParseSections->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck::ParseSections->VERSION($want_version); 1 },

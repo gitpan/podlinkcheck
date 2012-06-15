@@ -10,6 +10,7 @@ debian/watch
 devel/cpan-sqlite.pl
 devel/cpan.pl
 devel/cpanplus.pl
+devel/filter.pl
 devel/htmlbatch.pl
 devel/podfind.pl
 devel/podparser.pl
@@ -28,6 +29,7 @@ SIGNATURE
 t/MyTestHelpers.pm
 t/ParseSections.t
 t/PodLinkCheck.t
+xt/0-file-is-part-of.t
 xt/0-META-read.t
 xt/0-no-debug-left-on.t
 xt/0-Test-ConsistentVersion.t
@@ -35,4 +37,12 @@ xt/0-Test-DistManifest.t
 xt/0-Test-Pod.t
 xt/0-Test-Synopsis.t
 xt/0-Test-YAML-Meta.t
+xtools/my-check-copyright-years.sh
+xtools/my-check-file-part-of.sh
+xtools/my-check-spelling.sh
+xtools/my-deb.sh
+xtools/my-diff-prev.sh
+xtools/my-manifest.sh
+xtools/my-pc.sh
+xtools/my-wunused.sh
 META.yml                                 Module meta-data (added by MakeMaker)

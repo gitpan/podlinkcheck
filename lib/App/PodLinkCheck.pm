@@ -1,4 +1,4 @@
-# Copyright 2010, 2011 Kevin Ryde
+# Copyright 2010, 2011, 2012 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -23,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 8;
+$VERSION = 9;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -95,7 +95,8 @@ sub check_tree {
   ### check_tree(): \@files_or_directories
 
   my $order = eval { require Sort::Key::Natural }
-    ? \&_find_order_natural : \&_find_order_plain;
+    ? \&_find_order_natural
+      : \&_find_order_plain;
   ### Natural: $@
 
   foreach my $filename (@files_or_directories) {
@@ -136,9 +137,9 @@ sub check_tree {
 }
 
 sub _is_perlfile {
-  ### _is_perlfile(): $@
+  ### _is_perlfile(): $_
   return (! -d
-          && ! m{/\.#}   # emacs lockfile
+          && ! m{/\.#}   # not emacs lockfile
           && /\.p([lm]|od)$/);
 }
 
@@ -148,13 +149,17 @@ sub _is_perlfile {
 # }
 sub _find_order_plain {
   my ($x, $y) = @_;
-  return (-d $y <=> -d $x   # plain files first
+  # if $x or $y is a dangling symlink then -d is undef rather than '' false,
+  # hence "||0"
+  return ((-d $y || 0) <=> (-d $x || 0)   # plain files before directories
           || lc($y) cmp lc($x)
           || $y cmp $x);
 }
 sub _find_order_natural {
   my ($x, $y) = @_;
-  return (-d $y <=> -d $x   # plain files first
+  # if $x or $y is a dangling symlink then -d is undef rather than '' false,
+  # hence "||0"
+  return ((-d $y || 0) <=> (-d $x || 0)   # plain files before directories
           || do {
             $x = Sort::Key::Natural::mkkey_natural($x);
             $y = Sort::Key::Natural::mkkey_natural($y);
@@ -645,7 +650,18 @@ App::PodLinkCheck -- check Perl pod LE<lt>E<gt> link references
 
 =item C<$plc = App::PodLinkCheck-E<gt>new (key =E<gt> value, ...)>
 
-Create and return a PodLinkCheck object.
+Create and return a PodLinkCheck object.  The optional key/value parameters
+are
+
+=over
+
+=item C<verbose =E<gt> $integer> (default 0)
+
+Print some diagnostics about checking.  Currently C<verbose=E<gt>1> shows
+all the links checked, or C<verbose=E<gt>2> shows that plus available
+targets detected in destination files etc.
+
+=back
 
 =item C<$exitcode = $plc-E<gt>command_line>
 
@@ -655,7 +671,13 @@ for success.
 
 =item C<$plc-E<gt>check_file ($filename)>
 
-Run checks on file C<$filename>.
+Run checks on a single file C<$filename>.
+
+=item C<$plc-E<gt>check_tree ($file_or_dir, ...)>
+
+Run checks on all the files or directories given.  Directories are traversed
+recursively, checking all Perl files.  A Perl file is F<.pm>, F<.pl> or
+F<.pod>.  Emacs F<.#foo.pm> etc dangling symlink lockfiles are ignored.
 
 =back
 
@@ -669,7 +691,7 @@ http://user42.tuxfamily.org/podlinkcheck/index.html
 
 =head1 LICENSE
 
-Copyright 2010, 2011 Kevin Ryde
+Copyright 2010, 2011, 2012 Kevin Ryde
 
 PodLinkCheck is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

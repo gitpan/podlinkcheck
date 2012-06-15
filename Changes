@@ -1,4 +1,4 @@
-Copyright 2009, 2010, 2011 Kevin Ryde
+Copyright 2009, 2010, 2011, 2012 Kevin Ryde
 
 This file is part of PodLinkCheck.
 
@@ -16,6 +16,10 @@ You should have received a copy of the GNU General Public License
 along with PodLinkCheck.  If not, see <http://www.gnu.org/licenses/>.
 
 
+
+Version 9, June 2012
+    - avoid warnings from dangling symlinks
+    - document $plc->check_tree()
 
 Version 8, June 2011
     - fix stray Sort::Key::Natural meant to be only optional

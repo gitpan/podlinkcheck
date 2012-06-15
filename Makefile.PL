@@ -1,6 +1,6 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
-# Copyright 2009, 2010, 2011 Kevin Ryde
+# Copyright 2009, 2010, 2011, 2012 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 #
@@ -38,6 +38,7 @@ MyMakeMakerExtras::WriteMakefile
                     'Pod::Find' => 0,
                     'File::Find::Iterator' => 0,
                     'File::Spec' => '0.8', # version 0.8 for ->devnull()
+                    'File::Temp' => 0,
                     'IPC::Run' => 0,
                     'List::Util' => 0,
                     'Locale::TextDomain' => 0,
@@ -48,9 +49,13 @@ MyMakeMakerExtras::WriteMakefile
    META_MERGE =>
    { resources =>
      { homepage => 'http://user42.tuxfamily.org/podlinkcheck/index.html',
+       license  => 'http://www.gnu.org/licenses/gpl.html',
      },
+     no_index => { directory=>['devel'] },
+
      recommends =>
      { 'Sort::Key::Natural' => 0 },
+
      optional_features =>
      { maximum_interoperation =>
        { description => 'Have maximum inter-operation with other modules (optional supported other stuff).',
@@ -59,17 +64,18 @@ MyMakeMakerExtras::WriteMakefile
                        'Sort::Key::Natural' => 0,
                      },
        },
-
-       maximum_devel =>
-       { description => 'Stuff used variously for development.',
-         requires => { 'IO::String' => 0,
-                       'Smart::Comments' => 0,
-                       'Pod::Escapes' => 0,
-                       'Pod::Parser' => 0,
-                       'Pod::ParseLink' => 0,
-                       'Pod::Simple::HTMLBatch' => 0,
-                     },
-       },
      },
    },
   );
+
+
+       # maximum_devel =>
+       # { description => 'Stuff used variously for development.',
+       #   requires => { 'IO::String' => 0,
+       #                 'Smart::Comments' => 0,
+       #                 'Pod::Escapes' => 0,
+       #                 'Pod::Parser' => 0,
+       #                 'Pod::ParseLink' => 0,
+       #                 'Pod::Simple::HTMLBatch' => 0,
+       #               },
+       # },
