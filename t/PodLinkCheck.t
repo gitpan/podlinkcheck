@@ -29,7 +29,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 9;
+  my $want_version = 10;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },
@@ -108,12 +108,20 @@ foreach my $elem (['<', 'E<lt>'],
                       '_module_known_CPAN',
                       '_module_known_CPANPLUS') {
     diag "$method()";
-    ok (! $plc->$method ('No::Such::Module'),
-        "$method() No::Such::Module");
+
+    {
+      my $module = 'No::Such::Module';
+      my $got = $plc->$method($module);
+      ok (! $got, "$method() No::Such::Module");
+      if ($got) {
+        diag "Oops, No::Such::Module exists, CPAN::META entry is:";
+        diag explain $CPAN::META->{'readwrite'}->{'CPAN::Module'}->{$module};
+      }
+    }
     diag "$method() Pod::Find is ", $plc->$method('Pod::Find');
 
     # check a successful find isn't held onto
-    ok (! $plc->$method ('No::Such::Module::Again'),
+    ok (! $plc->$method('No::Such::Module::Again'),
         "$method() No::Such::Module::Again");
   }
 }

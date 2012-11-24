@@ -23,7 +23,7 @@ use warnings;
 use App::PodLinkCheck;
 
 use vars '$VERSION';
-$VERSION = 9;
+$VERSION = 10;
 
 my $plc = App::PodLinkCheck->new;
 exit $plc->command_line;

@@ -1,5 +1,5 @@
-podlinkcheck (9-1) unstable; urgency=low
+podlinkcheck (10-1) unstable; urgency=low
 
   * Packaged version.
 
- -- Kevin Ryde <user42@zip.com.au>  Sat, 16 Jun 2012 08:04:27 +1000
+ -- Kevin Ryde <user42@zip.com.au>  Sat, 24 Nov 2012 14:28:15 +1100
