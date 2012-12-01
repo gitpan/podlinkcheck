@@ -23,7 +23,7 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 10;
+$VERSION = 11;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -348,6 +348,8 @@ sub filename_to_sections {
 
 #------------------------------------------------------------------------------
 # CPAN
+#
+# cf CPAN::API::HOWTO
 
 sub _module_known_cpan {
   my ($self, $module) = @_;

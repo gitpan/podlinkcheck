@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               podlinkcheck
-version:            10
+version:            11
 abstract:           Check POD L<> link references.
 author:
     - Kevin Ryde <user42@zip.com.au>
