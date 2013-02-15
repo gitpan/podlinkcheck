@@ -12,12 +12,11 @@ devel/cpan.pl
 devel/cpanplus.pl
 devel/filter.pl
 devel/htmlbatch.pl
+devel/login-conf.pl
 devel/podfind.pl
 devel/podparser.pl
 devel/run.pl
 devel/Test.pm
-inc/my_pod2html
-inc/MyMakeMakerExtras.pm
 lib/App/PodLinkCheck.pm
 lib/App/PodLinkCheck/ParseLinks.pm
 lib/App/PodLinkCheck/ParseSections.pm
@@ -45,4 +44,5 @@ xtools/my-diff-prev.sh
 xtools/my-manifest.sh
 xtools/my-pc.sh
 xtools/my-wunused.sh
+xtools/my_pod2html
 META.yml                                 Module meta-data (added by MakeMaker)

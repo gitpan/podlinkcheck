@@ -29,7 +29,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 #------------------------------------------------------------------------------
 {
-  my $want_version = 11;
+  my $want_version = 12;
   is ($App::PodLinkCheck::VERSION, $want_version, 'VERSION variable');
   is (App::PodLinkCheck->VERSION,  $want_version, 'VERSION class method');
   ok (eval { App::PodLinkCheck->VERSION($want_version); 1 },

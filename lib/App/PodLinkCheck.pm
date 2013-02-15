@@ -1,4 +1,4 @@
-# Copyright 2010, 2011, 2012 Kevin Ryde
+# Copyright 2010, 2011, 2012, 2013 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -23,10 +23,10 @@ use Carp;
 use Locale::TextDomain ('App-PodLinkCheck');
 
 use vars '$VERSION';
-$VERSION = 11;
+$VERSION = 12;
 
 # uncomment this to run the ### lines
-#use Smart::Comments;
+# use Smart::Comments;
 
 sub command_line {
   my ($self) = @_;
@@ -95,8 +95,7 @@ sub check_tree {
   ### check_tree(): \@files_or_directories
 
   my $order = eval { require Sort::Key::Natural }
-    ? \&_find_order_natural
-      : \&_find_order_plain;
+    ? \&_find_order_natural : \&_find_order_plain;
   ### Natural: $@
 
   foreach my $filename (@files_or_directories) {
@@ -143,6 +142,10 @@ sub _is_perlfile {
           && /\.p([lm]|od)$/);
 }
 
+use constant::defer _HAVE_SORT_KEY_NATURAL => sub {
+  eval { require Sort::Key::Natural; 1 }
+};
+
 # sub _find_sort {
 #   # print "_find_sort\n";
 #   return sort _find_order @_;
@@ -151,7 +154,7 @@ sub _find_order_plain {
   my ($x, $y) = @_;
   # if $x or $y is a dangling symlink then -d is undef rather than '' false,
   # hence "||0"
-  return ((-d $y || 0) <=> (-d $x || 0)   # plain files before directories
+  return (_cmp_file_before_directory($y,$x)
           || lc($y) cmp lc($x)
           || $y cmp $x);
 }
@@ -159,13 +162,21 @@ sub _find_order_natural {
   my ($x, $y) = @_;
   # if $x or $y is a dangling symlink then -d is undef rather than '' false,
   # hence "||0"
-  return ((-d $y || 0) <=> (-d $x || 0)   # plain files before directories
+  return (_cmp_file_before_directory($y,$x)
           || do {
             $x = Sort::Key::Natural::mkkey_natural($x);
             $y = Sort::Key::Natural::mkkey_natural($y);
             lc($y) cmp lc($x)
               || $y cmp $x
             });
+}
+# $x,$y are filenames.  Return spaceship style <=> comparision 1,false,-1
+# which reckons files before directories, ie. file less than directory..
+sub _cmp_file_before_directory {
+  my ($x, $y) = @_;
+  # If $x or $y is a dangling symlink then -d is undef rather than '' false,
+  # hence "||0" for the compare.
+  return (-d $x || 0) <=> (-d $y || 0);
 }
 
 sub check_file {
@@ -288,7 +299,6 @@ sub check_file {
             print "    $section\n";
           }
         }
-
       }
     }
   }
@@ -310,7 +320,7 @@ sub _section_approximations {
 }
 sub _section_approximation_crunch {
   my ($section) = @_;
-  $section =~ s/\W+//g;
+  $section =~ s/(\W|_)+//g;
   return lc($section);
 }
 
@@ -559,7 +569,7 @@ sub manpage_is_known {
   push @manargs, $name;
   ### man: \@manargs
 
-  return ($$r = (_man_has_location_option()
+  return ($$r = ($self->_man_has_location_option()
                  ? $self->_manpage_is_known_by_location(@manargs)
                  : $self->_manpage_is_known_by_output(@manargs)));
 }
@@ -569,6 +579,8 @@ sub manpage_is_known {
 # Is it man-db specific, or does it have a chance of working elsewhere?
 #
 use constant::defer _man_has_location_option => sub {
+  my ($self) = @_;
+  ### _man_has_location_option() ...
   require IPC::Run;
   require File::Spec;
   my $str = '';
@@ -578,8 +590,16 @@ use constant::defer _man_has_location_option => sub {
                    '>', \$str,
                    '2>', File::Spec->devnull);
   };
-  ### _man_has_location_option(): 0 + ($str =~ /--location\b/)
-  return ($str =~ /--location\b/);
+  my $ret = ($str =~ /--location\b/);
+  if ($self->{'verbose'} >= 2) {
+    if ($ret) {
+      print __("man \"--location\" option is available\n");
+    } else {
+      print __("man \"--location\" option not available (not in its \"--help\")\n");
+    }
+  }
+  ### $ret
+  return $ret;
 };
 
 sub _manpage_is_known_by_location {
@@ -693,7 +713,7 @@ http://user42.tuxfamily.org/podlinkcheck/index.html
 
 =head1 LICENSE
 
-Copyright 2010, 2011, 2012 Kevin Ryde
+Copyright 2010, 2011, 2012, 2013 Kevin Ryde
 
 PodLinkCheck is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

@@ -15,15 +15,15 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 2e58d50a1bd0bd205e6a58dfe15bafe2e808d3dc Changes
-SHA1 2cc95938caeb76d49db72e4d0b7b2bce4ce351ce MANIFEST
+SHA1 76c5ea240f94827dd314d334c6798aaa300ca5cd Changes
+SHA1 86b90978de074305afad21ab662d9babdc87aaa8 MANIFEST
 SHA1 b758f740af57256154bbf4e1f8a760a1b9f9dfe1 MANIFEST.SKIP
-SHA1 4ad91b39b311c36f3aab4f8755c8f4475637d54b META.yml
-SHA1 40e46c45efec9eeecf36f3779493fc9baff404a2 Makefile.PL
-SHA1 f9c835a8eac16490a51391efc3726776a9611850 debian/changelog
+SHA1 6b59cdc38aeaea52f6034f94f98207119063e55c META.yml
+SHA1 02bc3ab1f22eb9e6c5b5deef8fe5370a2d3a7cb8 Makefile.PL
+SHA1 df9bf45363aaad11b394986159a047bb9814acd9 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
 SHA1 2a48f006f4b9757f0592eb04b2273065803ee77c debian/control
-SHA1 2c4501ac4ccd6cc1533cfd7ff6fed83382121dcf debian/copyright
+SHA1 f2f99e3319236a98cba74ee9122dd8758b1fc36b debian/copyright
 SHA1 085206628ab15ffb2c4b181b520330c9bb5b2133 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 53a196932bebde7d88cccc83689a6e82b31f5213 debian/watch
@@ -33,18 +33,17 @@ SHA1 46aee627e71f2234d0067d90edc9bdebc4ce9a03 devel/cpan.pl
 SHA1 493024a8edca5365df78961cbe53d98125e0e571 devel/cpanplus.pl
 SHA1 448b3fdc936373af1cf61c5bbf34433deb793e14 devel/filter.pl
 SHA1 f3287299f972cdd324a019e3fb6e1b54e65c857e devel/htmlbatch.pl
+SHA1 bc4b21683ca6e0a1930ccb559875ec2b45dc47af devel/login-conf.pl
 SHA1 f93e3cbadfacae44fa6783ad90ec733de179bfa0 devel/podfind.pl
 SHA1 c2f191c83bc3b233b30a3818d532a6d8d9363901 devel/podparser.pl
 SHA1 e353edcb901ab7ca27c5018b29ede836ff4545c4 devel/run.pl
-SHA1 355b182e01f918114bc6c85967b2de758e1dc9fe inc/MyMakeMakerExtras.pm
-SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf inc/my_pod2html
-SHA1 e1384c0e451990c6cfd9e075fb4084ae8ee20dc8 lib/App/PodLinkCheck.pm
-SHA1 9b11d2b8171fb54c1342efc3bdc5b5bb11d583b0 lib/App/PodLinkCheck/ParseLinks.pm
-SHA1 d534c1f18ccb16a4a93e8bd0babfe2516aa95d81 lib/App/PodLinkCheck/ParseSections.pm
-SHA1 e8e15bbd06e770dd0a846de8a17fe9cb44e602f5 podlinkcheck
+SHA1 8817e8de8e916b150a4994ed40ece8839dedf6ea lib/App/PodLinkCheck.pm
+SHA1 1ca9f97f7d3f53a333941533a75bd73e2e06d0ab lib/App/PodLinkCheck/ParseLinks.pm
+SHA1 d7d54141da9a25d041f77772d02ceb328c92bc7f lib/App/PodLinkCheck/ParseSections.pm
+SHA1 a762d1bd11f9bd38c25c4c5f21370626037aee82 podlinkcheck
 SHA1 3855de075da37f5bc4e6a5534b2f00cc14872a98 t/MyTestHelpers.pm
-SHA1 31f3025e59782b49abaa226dad125c64594034ba t/ParseSections.t
-SHA1 888c24f177489f0992c9953e289effab4f26d50f t/PodLinkCheck.t
+SHA1 89031d6b894fb9479833730457ed94008d45fa28 t/ParseSections.t
+SHA1 8e0df6540c8274c392ecc61a4ab7ade80c2891a2 t/PodLinkCheck.t
 SHA1 811028548aa4b360b5086d1af3150f9dde348aa6 xt/0-META-read.t
 SHA1 c9e7a47e1f397eb5f46d7e4ef21754d9df76e36e xt/0-Test-ConsistentVersion.t
 SHA1 d9e7f38a8dcfdb76c56951e4214be8eeda2e2289 xt/0-Test-DistManifest.t
@@ -56,15 +55,16 @@ SHA1 aeb6f41dfae96d04459448f6c3e3dee44691e722 xt/0-no-debug-left-on.t
 SHA1 84a47c1d71fd58797a2754030998dfb673b62811 xtools/my-check-copyright-years.sh
 SHA1 bfb75ffb7a834c345288e01f561b12695f191d12 xtools/my-check-file-part-of.sh
 SHA1 1f28ea8151b0f8554e5ab4e5bbcf1c5371f788eb xtools/my-check-spelling.sh
-SHA1 59164eaeb61442a799e88fbd2cad0b503588da32 xtools/my-deb.sh
+SHA1 f3e50b961e575e060e35ddc4d94c7b3e6101d660 xtools/my-deb.sh
 SHA1 2db0a23176de55a8ee8f1643f239aeaa2bcf4fa1 xtools/my-diff-prev.sh
 SHA1 e4a15f9b4bcf1d087de2d9ed8e87bf92b0469a6c xtools/my-manifest.sh
 SHA1 4db9c30b1fc96b04a794218ca19561b368f59679 xtools/my-pc.sh
-SHA1 631dabf52c65a7b8613d6565fef2c2416ebba7e9 xtools/my-wunused.sh
+SHA1 f90084e1d6f95abb12eea896cd1cc850402d7726 xtools/my-wunused.sh
+SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf xtools/my_pod2html
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
-iD8DBQFQum8uLFMCIV9q3ToRAjzvAJkBUmkiLYq7vVMmpF2fR6XkIXLBgQCfXucz
-CuC1aiouqIiu1aU84pV8eOo=
-=FMiU
+iD8DBQFRHrtBLFMCIV9q3ToRAnv3AJ9OabmWL6iEF0ySFntr9+2C2HIPBwCgtlMb
+PN8KvePcZCoqiy1TNKHX7WQ=
+=d7lp
 -----END PGP SIGNATURE-----

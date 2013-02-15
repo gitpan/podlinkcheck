@@ -1,6 +1,6 @@
 #!perl -w
 
-# Copyright 2010, 2011, 2012 Kevin Ryde
+# Copyright 2010, 2011, 2012, 2013 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 
@@ -23,7 +23,7 @@ use warnings;
 use App::PodLinkCheck;
 
 use vars '$VERSION';
-$VERSION = 11;
+$VERSION = 12;
 
 my $plc = App::PodLinkCheck->new;
 exit $plc->command_line;
@@ -48,7 +48,9 @@ or man page.
 
 =for ProhibitVerbatimMarkup allow next
 
-    L<foo>       <-- check "foo" exists
+    L<foo>          check module, pod or program "foo"
+    L<foo/section>    and check section within the pod
+    L<bar(1)>       check man page "bar(1)"
 
 The command line is either individual files or whole directories.  For a
 directory all the F<.pl>, F<.pm> and F<.pod> files under it are checked.  So
@@ -64,7 +66,7 @@ C<CE<lt>E<gt>> or C<IE<lt>E<gt>> was intended.
 =head2 Checks
 
 External links are checked by seeking the target F<.pm> module or F<.pod>
-documentation in the C<@INC> path (per C<Pod::Find>), or seeking a script
+documentation in the C<@INC> path (per L<Pod::Find>), or seeking a script
 (no file extension) in the usual executable C<PATH>.  A section name in a
 link is checked by parsing the POD in the target file.
 
@@ -98,7 +100,7 @@ or quotes,
 C<podlinkcheck> warns about C<LE<lt>SYNOPSISE<gt>> section links.  But not
 if it's both an valid external module and internal section -- because it's
 not uncommon to have a module name as a heading or item and an
-C<LE<lt>E<gt>> links still meaning the external one.
+C<LE<lt>E<gt>> link still meaning the external one.
 
 =head2 Section Name Matching
 
@@ -150,10 +152,9 @@ sometimes that's what you want, eg.
 
 C<podlinkcheck> uses C<Pod::Simple> for parsing and so follows its
 interpretation of the various hairy C<LE<lt>E<gt>> link forms.  If an
-C<LE<lt>E<gt>> appears to be mis-interpreted you might want to rewrite it
-(perhaps with escapes like EE<lt>solE<gt>) for the benefit of all
-translators which use C<Pod::Simple>, and which in Perl 5.10 includes the
-basic C<pod2man>.
+C<LE<lt>E<gt>> appears to be mis-interpreted you might rewrite it, perhaps
+with escapes like EE<lt>solE<gt>, for the benefit of all translators which
+use C<Pod::Simple>, which in Perl 5.10 includes the basic C<pod2man>.
 
 =head2 Other Ways to Do It
 
@@ -194,6 +195,13 @@ is also where link targets are sought.
 
 =back
 
+=head1 BUGS
+
+C<Pod::Simple> prior to version 3.24 didn't allow "." dots in man-page
+names, resulting in for example L<login.conf(5)> being treated as a Perl
+module name not a man page name.  If you have such links then C<Pod::Simple>
+version 3.24 or up is recommended.
+
 =head1 SEE ALSO
 
 L<podchecker>, L<podlint>
@@ -207,7 +215,7 @@ http://user42.tuxfamily.org/podlinkcheck/index.html
 
 =head1 LICENSE
 
-Copyright 2010, 2011, 2012 Kevin Ryde
+Copyright 2010, 2011, 2012, 2013 Kevin Ryde
 
 PodLinkCheck is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2009, 2010, 2011, 2012 Kevin Ryde
+# Copyright 2009, 2010, 2011, 2012, 2013 Kevin Ryde
 
 # This file is part of PodLinkCheck.
 #
@@ -21,10 +21,8 @@ use 5.006;
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
-use lib 'inc';
-use MyMakeMakerExtras;
 
-MyMakeMakerExtras::WriteMakefile
+WriteMakefile
   (NAME         => 'podlinkcheck',
    ABSTRACT     => 'Check POD L<> link references.',
    VERSION_FROM => 'podlinkcheck',
@@ -54,7 +52,11 @@ MyMakeMakerExtras::WriteMakefile
      no_index => { directory=>['devel'] },
 
      recommends =>
-     { 'Sort::Key::Natural' => 0 },
+     { 'Sort::Key::Natural' => 0,
+       # Pod::Simple version 3.24 has a fix for L<login.conf(5)> and similar
+       # man-page links with a "." dot in the name
+       'Pod::Simple' => '3.24',
+     },
 
      optional_features =>
      { maximum_interoperation =>
@@ -69,13 +71,13 @@ MyMakeMakerExtras::WriteMakefile
   );
 
 
-       # maximum_devel =>
-       # { description => 'Stuff used variously for development.',
-       #   requires => { 'IO::String' => 0,
-       #                 'Smart::Comments' => 0,
-       #                 'Pod::Escapes' => 0,
-       #                 'Pod::Parser' => 0,
-       #                 'Pod::ParseLink' => 0,
-       #                 'Pod::Simple::HTMLBatch' => 0,
-       #               },
-       # },
+# maximum_devel =>
+# { description => 'Stuff used variously for development.',
+#   requires => { 'IO::String' => 0,
+#                 'Smart::Comments' => 0,
+#                 'Pod::Escapes' => 0,
+#                 'Pod::Parser' => 0,
+#                 'Pod::ParseLink' => 0,
+#                 'Pod::Simple::HTMLBatch' => 0,
+#               },
+# },
